@@ -2,7 +2,7 @@ const Header = () => {
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-        <div className="container my-2">
+        <div className="container">
           <a href="" className="navbar-brand">
             Mizuki Hanae
           </a>
