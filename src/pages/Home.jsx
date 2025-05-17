@@ -85,9 +85,11 @@ const CurrentOffers = () => {
 const Home = () => (
   <>
     <Header />
-    <main className="container">
-      <FeaturedCategories />
-      <CurrentOffers />
+    <main className="mt-5">
+      <div className="container pt-4">
+        <FeaturedCategories />
+        <CurrentOffers />
+      </div>
     </main>
     <Footer />
   </>
