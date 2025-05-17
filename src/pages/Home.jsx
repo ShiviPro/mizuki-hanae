@@ -70,11 +70,24 @@ const FeaturedCategories = () => {
   );
 };
 
+const CurrentOffers = () => {
+  return (
+    <section>
+      <img
+        src="https://placehold.co/5120x1500?text=An+Amazing+Offer"
+        alt="Offer1"
+        className="img-fluid"
+      />
+    </section>
+  );
+};
+
 const Home = () => (
   <>
     <Header />
     <main className="container">
       <FeaturedCategories />
+      <CurrentOffers />
     </main>
     <Footer />
   </>
