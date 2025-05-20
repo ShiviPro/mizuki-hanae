@@ -85,7 +85,7 @@ const CurrentOffers = () => {
 const Home = () => (
   <>
     <Header />
-    <main className="mt-5 pb-5">
+    <main className="mt-5 pb-5 bg-body-tertiary">
       <div className="container pt-4">
         <FeaturedCategories />
         <CurrentOffers />
