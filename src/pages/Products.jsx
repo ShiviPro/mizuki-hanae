@@ -7,6 +7,7 @@ const allProducts = [
     id: 1,
     name: "Dream of Light",
     yearOfMaking: new Date("1969-07-12"),
+    rating: 4.7,
     description: "A unique piece depicting scenery.",
     category: ["Realism"],
     images: [
@@ -50,6 +51,7 @@ const allProducts = [
     id: 2,
     name: "Solitude of Dawn",
     yearOfMaking: new Date("1976-10-03"),
+    rating: 4.5,
     description: "A stunning oil painting with vivid color contrasts.",
     category: ["Landscape"],
     images: [
@@ -98,6 +100,7 @@ const allProducts = [
     id: 3,
     name: "Echoes of Time",
     yearOfMaking: new Date("2001-05-22"),
+    rating: 4.6,
     description: "An evocative piece with complex layers of meaning.",
     category: ["Abstract"],
     images: [
@@ -146,6 +149,7 @@ const allProducts = [
     id: 4,
     name: "Melody in Red",
     yearOfMaking: new Date("2020-11-15"),
+    rating: 4.4,
     description: "A vibrant piece capturing deep emotions in red hues.",
     category: ["Figurative", "Portrait"],
     images: [
@@ -193,6 +197,7 @@ const allProducts = [
     id: 5,
     name: "Serene Waves",
     yearOfMaking: new Date("2018-08-09"),
+    rating: 4.2,
     description: "A soothing seascape that evokes calm and peace.",
     category: ["Seascape"],
     images: [
@@ -236,6 +241,7 @@ const allProducts = [
     id: 6,
     name: "Abstract Harmony",
     yearOfMaking: new Date("1995-03-18"),
+    rating: 4.1,
     description: "A bold abstract piece with vibrant color blocks.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -279,6 +285,7 @@ const allProducts = [
     id: 7,
     name: "Shadows of Red",
     yearOfMaking: new Date("2012-12-01"),
+    rating: 4.2,
     description: "A dynamic portrait with striking use of red and black.",
     category: ["Figurative"],
     images: [
@@ -323,6 +330,7 @@ const allProducts = [
     id: 8,
     name: "Ocean Bliss",
     yearOfMaking: new Date("2005-07-29"),
+    rating: 4.6,
     description: "A serene seascape with gentle waves and pastel sky.",
     category: ["Seascape"],
     images: [
@@ -367,6 +375,7 @@ const allProducts = [
     id: 9,
     name: "Golden Pathway",
     yearOfMaking: new Date("1999-11-11"),
+    rating: 4.3,
     description: "A nostalgic landscape with a golden sunrise.",
     category: ["Landscape"],
     images: [
@@ -410,6 +419,7 @@ const allProducts = [
     id: 10,
     name: "Urban Pulse",
     yearOfMaking: new Date("2022-01-20"),
+    rating: 4.7,
     description: "A contemporary abstract piece reflecting city energy.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -458,6 +468,7 @@ const allProducts = [
     id: 11,
     name: "Rainy Evening",
     yearOfMaking: new Date("1985-10-30"),
+    rating: 4.4,
     description: "A romantic landscape capturing rain and twilight.",
     category: ["Landscape"],
     images: [
@@ -502,6 +513,7 @@ const allProducts = [
     id: 12,
     name: "Celestial Abstraction",
     yearOfMaking: new Date("2023-03-14"),
+    rating: 4.2,
     description: "An abstract piece inspired by the cosmos.",
     category: ["Abstract"],
     images: [
@@ -546,6 +558,7 @@ const allProducts = [
     id: 13,
     name: "Tranquil Forest",
     yearOfMaking: new Date("1992-09-07"),
+    rating: 4.3,
     description: "A beautiful landscape filled with lush greens.",
     category: ["Landscape"],
     images: [
@@ -590,6 +603,7 @@ const allProducts = [
     id: 14,
     name: "Radiant Hills",
     yearOfMaking: new Date("2008-02-02"),
+    rating: 4.7,
     description: "A serene landscape with rolling hills bathed in light.",
     category: ["Landscape"],
     images: [
@@ -633,6 +647,7 @@ const allProducts = [
     id: 15,
     name: "City of Dreams",
     yearOfMaking: new Date("2017-06-12"),
+    rating: 4.5,
     description: "An abstract depiction of urban nightlife.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -676,6 +691,7 @@ const allProducts = [
     id: 16,
     name: "Ocean Melody",
     yearOfMaking: new Date("1998-04-21"),
+    rating: 4.4,
     description: "A tranquil seascape capturing the beauty of dawn at sea.",
     category: ["Seascape"],
     images: [
@@ -720,6 +736,7 @@ const allProducts = [
     id: 17,
     name: "Palette of Dreams",
     yearOfMaking: new Date("2024-02-13"),
+    rating: 4.5,
     description: "A colorful abstract piece that feels like a dream palette.",
     category: ["Abstract"],
     images: [
@@ -763,6 +780,7 @@ const allProducts = [
     id: 18,
     name: "Silhouette Dreams",
     yearOfMaking: new Date("1980-01-09"),
+    rating: 4.7,
     description: "A figurative piece with bold silhouettes in warm tones.",
     category: ["Figurative"],
     images: [
@@ -807,6 +825,7 @@ const allProducts = [
     id: 19,
     name: "Whispers of Leaves",
     yearOfMaking: new Date("2011-10-10"),
+    rating: 4.3,
     description: "A delicate landscape with softly falling leaves.",
     category: ["Landscape"],
     images: [
@@ -850,6 +869,7 @@ const allProducts = [
     id: 20,
     name: "Dancing Colors",
     yearOfMaking: new Date("2016-05-05"),
+    rating: 4.6,
     description: "A vibrant abstract piece full of energetic strokes.",
     category: ["Abstract", "Niche Art"],
     images: [
