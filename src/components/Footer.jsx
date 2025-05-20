@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-5 bg-dark text-light py-3">
+    <footer className="bg-dark text-light py-3">
       <div className="container">
         <p className="opacity-75">
           Flower icons created by{" "}

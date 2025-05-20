@@ -897,7 +897,7 @@ const Products = () => {
   return (
     <>
       <Header />
-      <main className="mt-5 bg-body-tertiary">
+      <main className="mt-5 pb-5 bg-body-tertiary">
         <div className="row pt-3">
           <aside className="col-3">
             <div
