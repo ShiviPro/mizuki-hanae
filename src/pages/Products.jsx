@@ -918,7 +918,7 @@ const Products = () => {
     <>
       <Header />
       <main className="mt-5 pb-5 bg-body-tertiary">
-        <div className="row pt-3">
+        <div className="row pt-3 me-0">
           <aside className="col-3">
             <div
               className="container bg-dark text-light py-4"
