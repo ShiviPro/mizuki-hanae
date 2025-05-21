@@ -1,6 +1,6 @@
 const ProductListing = ({ product }) => {
   return (
-    <section className="card border-0 bg-white">
+    <section className="card border-0 bg-white position-relative">
       <img
         src={product.images[0]}
         alt={product.name}
@@ -21,6 +21,7 @@ const ProductListing = ({ product }) => {
           Add/Go To Cart
         </button>
       </div>
+      <span className="bi bi-heart position-absolute end-0 mt-2 me-3 fs-5 fw-bold text-danger"></span>
     </section>
   );
 };
