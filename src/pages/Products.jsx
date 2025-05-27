@@ -915,13 +915,43 @@ const allProducts = [
 const Products = () => {
   const [budgetInput, setBudgetInput] = useState("");
   const [budgetFilter, setBudgetFilter] = useState("");
+  const [categoryChoices, setCategoryChoices] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState([]);
 
-  const filteredProducts = budgetFilter
+  let filteredProducts = budgetFilter
     ? allProducts.filter((product) => product.price <= budgetFilter)
     : [...allProducts];
+
+  if (categoryFilter.length > 0) {
+    filteredProducts = filteredProducts.filter((product) => {
+      for (let i = 0; i < categoryFilter.length; i++) {
+        for (let j = 0; j < product.category.length; j++) {
+          if (categoryFilter[i] == product.category[j]) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+  } else {
+    filteredProducts = [...allProducts];
+  }
+
   const minPriceInINR = 500;
   const maxPriceInINR = 50_000;
   const medianPriceInINR = (minPriceInINR + maxPriceInINR) / 2;
+
+  const categoryHandler = (event) => {
+    const { value, checked } = event.target;
+
+    if (checked) {
+      setCategoryChoices([...categoryChoices, value]);
+    } else {
+      setCategoryChoices(
+        categoryChoices.filter((category) => category !== value)
+      );
+    }
+  };
 
   const applyFilters = (event) => {
     event.preventDefault();
@@ -929,11 +959,15 @@ const Products = () => {
     if (budgetInput) {
       setBudgetFilter(budgetInput);
     }
+
+    setCategoryFilter([...categoryChoices]);
   };
 
   const clearAllFilters = () => {
     setBudgetInput("");
     setBudgetFilter("");
+    setCategoryChoices([]);
+    setCategoryFilter([]);
   };
 
   document.querySelector("title").textContent = "Browse Art - Mizuki Hanae";
@@ -1007,6 +1041,9 @@ const Products = () => {
                       type="checkbox"
                       id="abstractCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Abstract"
+                      checked={categoryChoices.includes("Abstract")}
                     />{" "}
                     <label
                       htmlFor="abstractCheckbox"
@@ -1020,6 +1057,9 @@ const Products = () => {
                       type="checkbox"
                       id="realismCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Realism"
+                      checked={categoryChoices.includes("Realism")}
                     />{" "}
                     <label
                       htmlFor="realismCheckbox"
@@ -1033,6 +1073,9 @@ const Products = () => {
                       type="checkbox"
                       id="figurativeCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Figurative"
+                      checked={categoryChoices.includes("Figurative")}
                     />{" "}
                     <label
                       htmlFor="figurativeCheckbox"
@@ -1046,6 +1089,9 @@ const Products = () => {
                       type="checkbox"
                       id="portraitCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Portrait"
+                      checked={categoryChoices.includes("Portrait")}
                     />{" "}
                     <label
                       htmlFor="portraitCheckbox"
@@ -1059,6 +1105,9 @@ const Products = () => {
                       type="checkbox"
                       id="nicheArtCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Niche Art"
+                      checked={categoryChoices.includes("Niche Art")}
                     />{" "}
                     <label
                       htmlFor="nicheArtCheckbox"
@@ -1072,6 +1121,9 @@ const Products = () => {
                       type="checkbox"
                       id="landscapeCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Landscape"
+                      checked={categoryChoices.includes("Landscape")}
                     />{" "}
                     <label
                       htmlFor="landscapeCheckbox"
@@ -1085,6 +1137,9 @@ const Products = () => {
                       type="checkbox"
                       id="seascapeCheckbox"
                       className="form-check-input"
+                      onChange={categoryHandler}
+                      value="Seascape"
+                      checked={categoryChoices.includes("Seascape")}
                     />{" "}
                     <label
                       htmlFor="seascapeCheckbox"
