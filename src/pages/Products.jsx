@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductListing from "../components/ProductListing";
+import { useState } from "react";
 
 const allProducts = [
   {
@@ -912,6 +913,29 @@ const allProducts = [
 ];
 
 const Products = () => {
+  const [budgetInput, setBudgetInput] = useState("");
+  const [budgetFilter, setBudgetFilter] = useState("");
+
+  const filteredProducts = budgetFilter
+    ? allProducts.filter((product) => product.price <= budgetFilter)
+    : [...allProducts];
+  const minPriceInINR = 500;
+  const maxPriceInINR = 50_000;
+  const medianPriceInINR = (minPriceInINR + maxPriceInINR) / 2;
+
+  const applyFilters = (event) => {
+    event.preventDefault();
+
+    if (budgetInput) {
+      setBudgetFilter(budgetInput);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setBudgetInput("");
+    setBudgetFilter("");
+  };
+
   document.querySelector("title").textContent = "Browse Art - Mizuki Hanae";
 
   return (
@@ -924,214 +948,245 @@ const Products = () => {
               className="container bg-dark text-light py-4"
               data-bs-theme="dark"
             >
-              <section className="d-flex justify-content-between align-items-center">
-                <h5>Filters</h5>
-                <button className="btn btn-link fs-5 text-light">Clear</button>
-              </section>
+              <form onSubmit={applyFilters}>
+                <section className="d-flex justify-content-between align-items-center">
+                  <h5>Filters</h5>
+                  <div className="btn-group">
+                    <button type="submit" className="btn btn-primary z-0">
+                      Apply
+                    </button>
 
-              <section className="my-3">
-                <h5>Price (&nbsp;₹&nbsp;)</h5>
-                <input
-                  id="budgetInput"
-                  className="form-control mb-2 mt-1"
-                  value={`upto ${12750}`}
-                />
-                <label
-                  htmlFor="priceRangeInput"
-                  className="d-flex justify-content-between"
-                >
-                  <span>500</span>
-                  <span>12,750</span>
-                  <span>25,000</span>
-                </label>
-                <input
-                  type="range"
-                  className="form-range"
-                  min={500}
-                  max={25000}
-                  step={500}
-                  id="priceRangeInput"
-                  // value={}
-                />
-              </section>
+                    <button
+                      className="btn btn-outline-primary"
+                      onClick={clearAllFilters}
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                </section>
 
-              <section className="my-3">
-                <h5>Category</h5>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="abstractCheckbox"
-                    className="form-check-input"
-                  />{" "}
+                <section className="my-3">
+                  <h5>Price (&nbsp;₹&nbsp;)</h5>
+                  <div className="d-flex align-items-center">
+                    <label htmlFor="budgetInput" className="me-2">
+                      Upto
+                    </label>
+                    <input
+                      type="number"
+                      id="budgetInput"
+                      className="form-control mb-2 mt-1"
+                      placeholder={budgetInput || "Not Set"}
+                      onChange={(event) => setBudgetInput(event.target.value)}
+                      value={budgetInput}
+                    />
+                  </div>
                   <label
-                    htmlFor="abstractCheckbox"
-                    className="form-check-label"
+                    htmlFor="priceRangeInput"
+                    className="d-flex justify-content-between"
                   >
-                    Abstract
+                    <span>{minPriceInINR}</span>
+                    <span>{medianPriceInINR}</span>
+                    <span>{maxPriceInINR}</span>
                   </label>
-                </div>
-                <div className="form-check">
                   <input
-                    type="checkbox"
-                    id="realismCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label htmlFor="realismCheckbox" className="form-check-label">
-                    Realism
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="figurativeCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="figurativeCheckbox"
-                    className="form-check-label"
-                  >
-                    Figurative
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="portraitCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="portraitCheckbox"
-                    className="form-check-label"
-                  >
-                    Portrait
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="nicheArtCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="nicheArtCheckbox"
-                    className="form-check-label"
-                  >
-                    Niche Art
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="landscapeCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="landscapeCheckbox"
-                    className="form-check-label"
-                  >
-                    Landscape
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    id="seascapeCheckbox"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="seascapeCheckbox"
-                    className="form-check-label"
-                  >
-                    Seascape
-                  </label>
-                </div>
-              </section>
+                    type="range"
+                    className="form-range"
+                    min={minPriceInINR}
+                    max={maxPriceInINR}
+                    step={500}
+                    id="priceRangeInput"
+                    value={budgetInput}
+                    onChange={(event) => setBudgetInput(event.target.value)}
+                  />
+                </section>
 
-              <section className="my-3">
-                <h5>Rating</h5>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="fourPlusRatingRadioBtn"
-                    name="ratingPref"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="fourPlusRatingRadioBtn"
-                    className="form-check-label"
-                  >
-                    4 Stars & above
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="threePlusRadioBtn"
-                    name="ratingPref"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="threePlusRadioBtn"
-                    className="form-check-label"
-                  >
-                    3 Stars & above
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="twoPlusRadioBtn"
-                    name="ratingPref"
-                    className="form-check-input"
-                  />{" "}
-                  <label htmlFor="twoPlusRadioBtn" className="form-check-label">
-                    2 Stars & above
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="onePlusRadioBtn"
-                    name="ratingPref"
-                    className="form-check-input"
-                  />{" "}
-                  <label htmlFor="onePlusRadioBtn" className="form-check-label">
-                    1 Star & above
-                  </label>
-                </div>
-              </section>
+                <section className="my-3">
+                  <h5>Category</h5>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="abstractCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="abstractCheckbox"
+                      className="form-check-label"
+                    >
+                      Abstract
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="realismCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="realismCheckbox"
+                      className="form-check-label"
+                    >
+                      Realism
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="figurativeCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="figurativeCheckbox"
+                      className="form-check-label"
+                    >
+                      Figurative
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="portraitCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="portraitCheckbox"
+                      className="form-check-label"
+                    >
+                      Portrait
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="nicheArtCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="nicheArtCheckbox"
+                      className="form-check-label"
+                    >
+                      Niche Art
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="landscapeCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="landscapeCheckbox"
+                      className="form-check-label"
+                    >
+                      Landscape
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      id="seascapeCheckbox"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="seascapeCheckbox"
+                      className="form-check-label"
+                    >
+                      Seascape
+                    </label>
+                  </div>
+                </section>
 
-              <section className="my-3">
-                <h5>Sort by</h5>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="ascendingSortRadioBtn"
-                    name="sortRadioBtn"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="ascendingSortRadioBtn"
-                    className="form-check-label"
-                  >
-                    Price: Low to High
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="descendingSortRadioBtn"
-                    name="sortRadioBtn"
-                    className="form-check-input"
-                  />{" "}
-                  <label
-                    htmlFor="descendingSortRadioBtn"
-                    className="form-check-label"
-                  >
-                    Price: High to Low
-                  </label>
-                </div>
-              </section>
+                <section className="my-3">
+                  <h5>Rating</h5>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="fourPlusRatingRadioBtn"
+                      name="ratingPref"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="fourPlusRatingRadioBtn"
+                      className="form-check-label"
+                    >
+                      4 Stars & above
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="threePlusRadioBtn"
+                      name="ratingPref"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="threePlusRadioBtn"
+                      className="form-check-label"
+                    >
+                      3 Stars & above
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="twoPlusRadioBtn"
+                      name="ratingPref"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="twoPlusRadioBtn"
+                      className="form-check-label"
+                    >
+                      2 Stars & above
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="onePlusRadioBtn"
+                      name="ratingPref"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="onePlusRadioBtn"
+                      className="form-check-label"
+                    >
+                      1 Star & above
+                    </label>
+                  </div>
+                </section>
+
+                <section className="my-3">
+                  <h5>Sort by</h5>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="ascendingSortRadioBtn"
+                      name="sortRadioBtn"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="ascendingSortRadioBtn"
+                      className="form-check-label"
+                    >
+                      Price: Low to High
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="descendingSortRadioBtn"
+                      name="sortRadioBtn"
+                      className="form-check-input"
+                    />{" "}
+                    <label
+                      htmlFor="descendingSortRadioBtn"
+                      className="form-check-label"
+                    >
+                      Price: High to Low
+                    </label>
+                  </div>
+                </section>
+              </form>
             </div>
           </aside>
           <div className="col-9">
@@ -1139,11 +1194,11 @@ const Products = () => {
               <div className="d-flex">
                 <h5 className="mb-4">Showing All Products </h5>
                 <p className="fs-6 fw-light ms-3">
-                  ( Showing {allProducts.length} products )
+                  ( Showing {filteredProducts.length} products )
                 </p>
               </div>
               <div className="row g-4">
-                {allProducts.map((product) => (
+                {filteredProducts.map((product) => (
                   <div key={product.id} className="col-md-3">
                     <ProductListing product={product} />
                   </div>
