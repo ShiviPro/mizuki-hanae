@@ -920,31 +920,34 @@ const Products = () => {
   const [minRatingChoice, setMinRatingChoice] = useState("");
   const [minRatingFilter, setMinRatingFilter] = useState("");
 
-  let filteredProducts = budgetFilter
-    ? allProducts.filter((product) => product.price <= budgetFilter)
-    : [...allProducts];
+  let filteredProducts = [...allProducts];
+  if (!budgetFilter && categoryFilter.length === 0 && !minRatingFilter) {
+    filteredProducts = [...allProducts];
+  } else {
+    if (budgetFilter) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price <= budgetFilter
+      );
+    }
 
-  if (categoryFilter.length > 0) {
-    filteredProducts = filteredProducts.filter((product) => {
-      for (let i = 0; i < categoryFilter.length; i++) {
-        for (let j = 0; j < product.category.length; j++) {
-          if (categoryFilter[i] == product.category[j]) {
-            return true;
+    if (categoryFilter.length > 0) {
+      filteredProducts = filteredProducts.filter((product) => {
+        for (let i = 0; i < categoryFilter.length; i++) {
+          for (let j = 0; j < product.category.length; j++) {
+            if (categoryFilter[i] == product.category[j]) {
+              return true;
+            }
           }
         }
-      }
-      return false;
-    });
-  } else {
-    filteredProducts = [...allProducts];
-  }
+        return false;
+      });
+    }
 
-  if (minRatingFilter) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.rating >= minRatingFilter
-    );
-  } else {
-    filteredProducts = [...allProducts];
+    if (minRatingFilter) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.rating >= minRatingFilter
+      );
+    }
   }
 
   const minPriceInINR = 500;
