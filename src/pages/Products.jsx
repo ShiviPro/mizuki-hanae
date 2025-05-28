@@ -101,7 +101,7 @@ const allProducts = [
     id: 3,
     name: "Echoes of Time",
     yearOfMaking: new Date("2001-05-22"),
-    rating: 4.6,
+    rating: 3.6,
     description: "An evocative piece with complex layers of meaning.",
     category: ["Abstract"],
     images: [
@@ -198,7 +198,7 @@ const allProducts = [
     id: 5,
     name: "Serene Waves",
     yearOfMaking: new Date("2018-08-09"),
-    rating: 4.2,
+    rating: 1.6,
     description: "A soothing seascape that evokes calm and peace.",
     category: ["Seascape"],
     images: [
@@ -242,7 +242,7 @@ const allProducts = [
     id: 6,
     name: "Abstract Harmony",
     yearOfMaking: new Date("1995-03-18"),
-    rating: 4.1,
+    rating: 3.9,
     description: "A bold abstract piece with vibrant color blocks.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -420,7 +420,7 @@ const allProducts = [
     id: 10,
     name: "Urban Pulse",
     yearOfMaking: new Date("2022-01-20"),
-    rating: 4.7,
+    rating: 3.7,
     description: "A contemporary abstract piece reflecting city energy.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -514,7 +514,7 @@ const allProducts = [
     id: 12,
     name: "Celestial Abstraction",
     yearOfMaking: new Date("2023-03-14"),
-    rating: 4.2,
+    rating: 2.7,
     description: "An abstract piece inspired by the cosmos.",
     category: ["Abstract"],
     images: [
@@ -559,7 +559,7 @@ const allProducts = [
     id: 13,
     name: "Tranquil Forest",
     yearOfMaking: new Date("1992-09-07"),
-    rating: 4.3,
+    rating: 3.3,
     description: "A beautiful landscape filled with lush greens.",
     category: ["Landscape"],
     images: [
@@ -648,7 +648,7 @@ const allProducts = [
     id: 15,
     name: "City of Dreams",
     yearOfMaking: new Date("2017-06-12"),
-    rating: 4.5,
+    rating: 2.6,
     description: "An abstract depiction of urban nightlife.",
     category: ["Abstract", "Niche Art"],
     images: [
@@ -692,7 +692,7 @@ const allProducts = [
     id: 16,
     name: "Ocean Melody",
     yearOfMaking: new Date("1998-04-21"),
-    rating: 4.4,
+    rating: 2.8,
     description: "A tranquil seascape capturing the beauty of dawn at sea.",
     category: ["Seascape"],
     images: [
@@ -826,7 +826,7 @@ const allProducts = [
     id: 19,
     name: "Whispers of Leaves",
     yearOfMaking: new Date("2011-10-10"),
-    rating: 4.3,
+    rating: 1.9,
     description: "A delicate landscape with softly falling leaves.",
     category: ["Landscape"],
     images: [
@@ -917,6 +917,8 @@ const Products = () => {
   const [budgetFilter, setBudgetFilter] = useState("");
   const [categoryChoices, setCategoryChoices] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
+  const [minRatingChoice, setMinRatingChoice] = useState("");
+  const [minRatingFilter, setMinRatingFilter] = useState("");
 
   let filteredProducts = budgetFilter
     ? allProducts.filter((product) => product.price <= budgetFilter)
@@ -937,6 +939,14 @@ const Products = () => {
     filteredProducts = [...allProducts];
   }
 
+  if (minRatingFilter) {
+    filteredProducts = filteredProducts.filter(
+      (product) => product.rating >= minRatingFilter
+    );
+  } else {
+    filteredProducts = [...allProducts];
+  }
+
   const minPriceInINR = 500;
   const maxPriceInINR = 50_000;
   const medianPriceInINR = (minPriceInINR + maxPriceInINR) / 2;
@@ -953,6 +963,10 @@ const Products = () => {
     }
   };
 
+  const ratingHandler = (event) => {
+    setMinRatingChoice(parseInt(event.target.value));
+  };
+
   const applyFilters = (event) => {
     event.preventDefault();
 
@@ -961,6 +975,8 @@ const Products = () => {
     }
 
     setCategoryFilter([...categoryChoices]);
+
+    setMinRatingFilter(minRatingChoice);
   };
 
   const clearAllFilters = () => {
@@ -968,6 +984,8 @@ const Products = () => {
     setBudgetFilter("");
     setCategoryChoices([]);
     setCategoryFilter([]);
+    setMinRatingChoice("");
+    setMinRatingFilter("");
   };
 
   document.querySelector("title").textContent = "Browse Art - Mizuki Hanae";
@@ -1158,6 +1176,9 @@ const Products = () => {
                       id="fourPlusRatingRadioBtn"
                       name="ratingPref"
                       className="form-check-input"
+                      value="4"
+                      onChange={ratingHandler}
+                      checked={minRatingChoice == 4}
                     />{" "}
                     <label
                       htmlFor="fourPlusRatingRadioBtn"
@@ -1172,6 +1193,9 @@ const Products = () => {
                       id="threePlusRadioBtn"
                       name="ratingPref"
                       className="form-check-input"
+                      value="3"
+                      onChange={ratingHandler}
+                      checked={minRatingChoice == 3}
                     />{" "}
                     <label
                       htmlFor="threePlusRadioBtn"
@@ -1186,6 +1210,9 @@ const Products = () => {
                       id="twoPlusRadioBtn"
                       name="ratingPref"
                       className="form-check-input"
+                      value="2"
+                      onChange={ratingHandler}
+                      checked={minRatingChoice == 2}
                     />{" "}
                     <label
                       htmlFor="twoPlusRadioBtn"
@@ -1200,6 +1227,9 @@ const Products = () => {
                       id="onePlusRadioBtn"
                       name="ratingPref"
                       className="form-check-input"
+                      value="1"
+                      onChange={ratingHandler}
+                      checked={minRatingChoice == 1}
                     />{" "}
                     <label
                       htmlFor="onePlusRadioBtn"
