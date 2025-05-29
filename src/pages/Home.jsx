@@ -1,10 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const FeaturedCategories = () => {
   return (
     <section className="row my-4">
-      <div
+      <Link
+        to="/products?category=Abstract"
         className="col p-5 mx-3 text-center position-relative"
         style={{
           backgroundImage:
@@ -15,8 +17,9 @@ const FeaturedCategories = () => {
         <span className="position-absolute text-bg-dark w-100 top-50 translate-middle-y start-0 opacity-75 p-1">
           Abstract
         </span>
-      </div>
-      <div
+      </Link>
+      <Link
+        to="/products?category=Realism"
         className="col p-5 mx-3 text-center position-relative"
         style={{
           backgroundImage:
@@ -27,8 +30,9 @@ const FeaturedCategories = () => {
         <span className="position-absolute text-bg-dark w-100 top-50 translate-middle-y start-0 opacity-75 p-1">
           Realism
         </span>
-      </div>
-      <div
+      </Link>
+      <Link
+        to="/products?category=Figurative"
         className="col p-5 mx-3 text-center position-relative"
         style={{
           backgroundImage:
@@ -39,9 +43,10 @@ const FeaturedCategories = () => {
         <span className="position-absolute text-bg-dark w-100 top-50 translate-middle-y start-0 opacity-75 p-1">
           Figurative
         </span>
-      </div>
+      </Link>
 
-      <div
+      <Link
+        to="/products?category=Portrait"
         className="col p-5 mx-3 text-center position-relative"
         style={{
           backgroundImage:
@@ -50,11 +55,12 @@ const FeaturedCategories = () => {
         }}
       >
         <span className="position-absolute text-bg-dark w-100 top-50 translate-middle-y start-0 opacity-75 p-1">
-          Portraits
+          Portrait
         </span>
-      </div>
+      </Link>
 
-      <div
+      <Link
+        to="/products?category=Niche+Art"
         className="col p-5 mx-3 text-center position-relative"
         style={{
           backgroundImage:
@@ -65,7 +71,7 @@ const FeaturedCategories = () => {
         <span className="position-absolute text-bg-dark w-100 top-50 translate-middle-y start-0 opacity-75 p-1">
           Niche Art
         </span>
-      </div>
+      </Link>
     </section>
   );
 };

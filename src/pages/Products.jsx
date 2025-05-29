@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductListing from "../components/ProductListing";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const allProducts = [
   {
@@ -913,10 +914,16 @@ const allProducts = [
 ];
 
 const Products = () => {
+  const [urlSearchParams, setUrlSearchParams] = useSearchParams();
+
+  const selectedCategory = urlSearchParams.get("category");
+
   const [budgetInput, setBudgetInput] = useState("");
   const [budgetFilter, setBudgetFilter] = useState("");
-  const [categoryChoices, setCategoryChoices] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState([]);
+
+  const [categoryChoices, setCategoryChoices] = useState([selectedCategory]);
+  const [categoryFilter, setCategoryFilter] = useState([selectedCategory]);
+
   const [minRatingChoice, setMinRatingChoice] = useState("");
   const [minRatingFilter, setMinRatingFilter] = useState("");
 
