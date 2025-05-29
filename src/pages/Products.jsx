@@ -1019,7 +1019,7 @@ const Products = () => {
                     </button>
 
                     <button
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary z-0"
                       onClick={clearAllFilters}
                     >
                       Clear All
