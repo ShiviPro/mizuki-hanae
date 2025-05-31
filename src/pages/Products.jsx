@@ -921,8 +921,12 @@ const Products = () => {
   const [budgetInput, setBudgetInput] = useState("");
   const [budgetFilter, setBudgetFilter] = useState("");
 
-  const [categoryChoices, setCategoryChoices] = useState([selectedCategory]);
-  const [categoryFilter, setCategoryFilter] = useState([selectedCategory]);
+  const [categoryChoices, setCategoryChoices] = useState(
+    selectedCategory ? [selectedCategory] : []
+  );
+  const [categoryFilter, setCategoryFilter] = useState(
+    selectedCategory ? [selectedCategory] : []
+  );
 
   const [minRatingChoice, setMinRatingChoice] = useState("");
   const [minRatingFilter, setMinRatingFilter] = useState("");
