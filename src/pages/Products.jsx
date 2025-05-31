@@ -984,9 +984,7 @@ const Products = () => {
   const applyFilters = (event) => {
     event.preventDefault();
 
-    if (budgetInput) {
-      setBudgetFilter(budgetInput);
-    }
+    setBudgetFilter(budgetInput);
 
     setCategoryFilter([...categoryChoices]);
 
