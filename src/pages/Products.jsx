@@ -2,9 +2,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductListing from "../components/ProductListing";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 
-const allProducts = [
+export const allProducts = [
   {
     id: 1,
     name: "Dream of Light",
@@ -16,7 +16,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Dream+of+Light+1",
       "https://placehold.co/800x600?text=Dream+of+Light+2",
     ],
-    dimensions: "60x52 inches",
+    dimensions: "60 x 52 inches",
     isFramed: true,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Signed by artist",
@@ -29,14 +29,14 @@ const allProducts = [
       estimatedDate: new Date("2025-08-21"),
     },
     tags: ["impressionism", "landscape", "canvas", "modern art", "sculpture"],
-    additionalInfo: [
-      {
-        medium: "Digital Print",
-        style: "Minimalism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Digital Print",
+      style: "Minimalism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "gallerist21",
         content: "This artwork speaks to me on so many levels.",
       },
@@ -61,7 +61,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Solitude+of+Dawn+2",
       "https://placehold.co/800x600?text=Solitude+of+Dawn+3",
     ],
-    dimensions: "45x70 cm",
+    dimensions: "45 x 70 cm",
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Certificate of Authenticity included",
@@ -74,18 +74,19 @@ const allProducts = [
       estimatedDate: new Date("2025-06-28"),
     },
     tags: ["oil painting", "landscape", "nature", "serene"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Impressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Impressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "critic99",
         content: "Absolutely love this piece!",
       },
       {
+        id: 2,
         authorId: "patron01",
         content: "The colors are so vibrant and alive.",
       },
@@ -110,7 +111,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Echoes+of+Time+2",
       "https://placehold.co/800x600?text=Echoes+of+Time+3",
     ],
-    dimensions: "30x40 inches",
+    dimensions: "30 x 40 inches",
     isFramed: true,
     stateOfPreservation: "Mint Condition",
     proofOfAuthenticity: "Signed by artist",
@@ -123,18 +124,19 @@ const allProducts = [
       estimatedDate: new Date("2025-07-05"),
     },
     tags: ["modern art", "colorful", "canvas"],
-    additionalInfo: [
-      {
-        medium: "Acrylic on Canvas",
-        style: "Abstract",
-      },
-    ],
+    additionalInfo: {
+      medium: "Acrylic on Canvas",
+      style: "Abstract",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "collectorX",
         content: "The use of color is just fantastic.",
       },
       {
+        id: 2,
         authorId: "visitor87",
         content: "Amazing detail and composition.",
       },
@@ -158,7 +160,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Melody+in+Red+1",
       "https://placehold.co/800x600?text=Melody+in+Red+2",
     ],
-    dimensions: "24x36 inches",
+    dimensions: "24 x 36 inches",
     isFramed: false,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Gallery-signed certificate",
@@ -171,18 +173,19 @@ const allProducts = [
       estimatedDate: new Date("2025-06-05"),
     },
     tags: ["portrait", "oil painting", "canvas"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Expressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Expressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "artlover45",
         content: "Absolutely love this piece!",
       },
       {
+        id: 2,
         authorId: "fanofart",
         content: "This artwork speaks to me on so many levels.",
       },
@@ -206,7 +209,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Serene+Waves+1",
       "https://placehold.co/800x600?text=Serene+Waves+2",
     ],
-    dimensions: "50x40 cm",
+    dimensions: "50 x 40 cm",
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "COA #3456",
@@ -219,14 +222,14 @@ const allProducts = [
       estimatedDate: new Date("2025-07-22"),
     },
     tags: ["watercolor", "ocean", "nature", "calm"],
-    additionalInfo: [
-      {
-        medium: "Watercolor on Paper",
-        style: "Realism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Watercolor on Paper",
+      style: "Realism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "user123",
         content: "Just saw this and had to comment - beautiful!",
       },
@@ -250,7 +253,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Abstract+Harmony+1",
       "https://placehold.co/800x600?text=Abstract+Harmony+2",
     ],
-    dimensions: "35x35 inches",
+    dimensions: "35 x 35 inches",
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Signed by artist",
@@ -263,14 +266,14 @@ const allProducts = [
       estimatedDate: new Date("2025-09-10"),
     },
     tags: ["abstract", "colorful", "large", "canvas"],
-    additionalInfo: [
-      {
-        medium: "Acrylic on Canvas",
-        style: "Cubism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Acrylic on Canvas",
+      style: "Cubism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "collectorX",
         content: "Would love to see more pieces like this.",
       },
@@ -295,7 +298,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Shadows+of+Red+2",
       "https://placehold.co/800x600?text=Shadows+of+Red+3",
     ],
-    dimensions: "42x30 inches",
+    dimensions: "42 x 30 inches",
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Gallery-signed certificate",
@@ -308,14 +311,14 @@ const allProducts = [
       estimatedDate: new Date("2025-06-15"),
     },
     tags: ["portrait", "oil painting", "expressive"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Expressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Expressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "artlover45",
         content: "The mood captured here is incredible.",
       },
@@ -340,7 +343,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Ocean+Bliss+2",
       "https://placehold.co/800x600?text=Ocean+Bliss+3",
     ],
-    dimensions: "48x60 inches",
+    dimensions: "48 x 60 inches",
     isFramed: true,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Documented provenance",
@@ -353,14 +356,14 @@ const allProducts = [
       estimatedDate: new Date("2025-09-16"),
     },
     tags: ["watercolor", "ocean", "landscape"],
-    additionalInfo: [
-      {
-        medium: "Watercolor on Paper",
-        style: "Realism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Watercolor on Paper",
+      style: "Realism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "gallerist21",
         content: "The use of color is just fantastic.",
       },
@@ -384,7 +387,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Golden+Pathway+1",
       "https://placehold.co/800x600?text=Golden+Pathway+2",
     ],
-    dimensions: "30x50 inches",
+    dimensions: "30 x 50 inches",
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Signed by artist",
@@ -397,14 +400,14 @@ const allProducts = [
       estimatedDate: new Date("2025-08-02"),
     },
     tags: ["oil painting", "sunrise", "nature"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Impressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Impressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "critic99",
         content: "The colors are so vibrant and alive.",
       },
@@ -429,7 +432,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Urban+Pulse+2",
       "https://placehold.co/800x600?text=Urban+Pulse+3",
     ],
-    dimensions: "40x40 inches",
+    dimensions: "40 x 40 inches",
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
@@ -442,18 +445,19 @@ const allProducts = [
       estimatedDate: new Date("2025-07-30"),
     },
     tags: ["modern art", "vibrant", "cityscape"],
-    additionalInfo: [
-      {
-        medium: "Gouache on Paper",
-        style: "Minimalism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Gouache on Paper",
+      style: "Minimalism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "visitor87",
         content: "Amazing detail and composition.",
       },
       {
+        id: 2,
         authorId: "fanofart",
         content: "I’m not usually a fan of this style, but this is stunning.",
       },
@@ -478,7 +482,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Rainy+Evening+2",
       "https://placehold.co/800x600?text=Rainy+Evening+3",
     ],
-    dimensions: "36x48 inches",
+    dimensions: "36 x 48 inches",
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Documented provenance",
@@ -491,14 +495,14 @@ const allProducts = [
       estimatedDate: new Date("2025-06-12"),
     },
     tags: ["oil painting", "rain", "evening", "canvas"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Realism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Realism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "artlover45",
         content: "Just saw this and had to comment - beautiful!",
       },
@@ -523,7 +527,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Celestial+Abstraction+2",
       "https://placehold.co/800x600?text=Celestial+Abstraction+3",
     ],
-    dimensions: "30x30 inches",
+    dimensions: "30 x 30 inches",
     isFramed: false,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Signed by artist",
@@ -536,14 +540,14 @@ const allProducts = [
       estimatedDate: new Date("2025-06-25"),
     },
     tags: ["colorful", "digital art", "modern"],
-    additionalInfo: [
-      {
-        medium: "Digital",
-        style: "Minimalism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Digital",
+      style: "Minimalism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "user123",
         content: "The mood captured here is incredible.",
       },
@@ -568,7 +572,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Tranquil+Forest+2",
       "https://placehold.co/800x600?text=Tranquil+Forest+3",
     ],
-    dimensions: "24x30 inches",
+    dimensions: "24 x 30 inches",
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Gallery-signed certificate",
@@ -581,14 +585,14 @@ const allProducts = [
       estimatedDate: new Date("2025-08-28"),
     },
     tags: ["oil painting", "forest", "nature"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Realism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Realism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "patron01",
         content: "The colors are so vibrant and alive.",
       },
@@ -612,7 +616,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Radiant+Hills+1",
       "https://placehold.co/800x600?text=Radiant+Hills+2",
     ],
-    dimensions: "30x36 inches",
+    dimensions: "30 x 36 inches",
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Documented provenance",
@@ -625,14 +629,14 @@ const allProducts = [
       estimatedDate: new Date("2025-07-10"),
     },
     tags: ["oil painting", "hills", "light"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Impressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Impressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "visitor87",
         content: "I'm not usually a fan of this style, but this is stunning.",
       },
@@ -656,7 +660,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=City+of+Dreams+1",
       "https://placehold.co/800x600?text=City+of+Dreams+2",
     ],
-    dimensions: "36x48 inches",
+    dimensions: "36 x 48 inches",
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
@@ -669,14 +673,14 @@ const allProducts = [
       estimatedDate: new Date("2025-08-05"),
     },
     tags: ["cityscape", "vibrant", "modern art"],
-    additionalInfo: [
-      {
-        medium: "Acrylic on Canvas",
-        style: "Pop Art",
-      },
-    ],
+    additionalInfo: {
+      medium: "Acrylic on Canvas",
+      style: "Pop Art",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "gallerist21",
         content: "Just saw this and had to comment - beautiful!",
       },
@@ -701,7 +705,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Ocean+Melody+2",
       "https://placehold.co/800x600?text=Ocean+Melody+3",
     ],
-    dimensions: "50x60 inches",
+    dimensions: "50 x 60 inches",
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Signed by artist",
@@ -714,14 +718,14 @@ const allProducts = [
       estimatedDate: new Date("2025-06-18"),
     },
     tags: ["oil painting", "sea", "sunrise"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Realism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Realism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "artlover45",
         content: "Absolutely love this piece!",
       },
@@ -745,7 +749,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Palette+of+Dreams+1",
       "https://placehold.co/800x600?text=Palette+of+Dreams+2",
     ],
-    dimensions: "24x36 inches",
+    dimensions: "24 x 36 inches",
     isFramed: true,
     stateOfPreservation: "New",
     proofOfAuthenticity: "Certificate of Authenticity included",
@@ -758,14 +762,14 @@ const allProducts = [
       estimatedDate: new Date("2025-10-01"),
     },
     tags: ["modern art", "vibrant", "colorful"],
-    additionalInfo: [
-      {
-        medium: "Acrylic on Canvas",
-        style: "Surrealism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Acrylic on Canvas",
+      style: "Surrealism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "user123",
         content: "The colors are so vibrant and alive.",
       },
@@ -790,7 +794,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Silhouette+Dreams+2",
       "https://placehold.co/800x600?text=Silhouette+Dreams+3",
     ],
-    dimensions: "48x60 inches",
+    dimensions: "48 x 60 inches",
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Documented provenance",
@@ -803,14 +807,14 @@ const allProducts = [
       estimatedDate: new Date("2025-09-12"),
     },
     tags: ["painting", "silhouette", "warm colors"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Modernism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Modernism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "visitor87",
         content: "This artwork speaks to me on so many levels.",
       },
@@ -834,7 +838,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Whispers+of+Leaves+1",
       "https://placehold.co/800x600?text=Whispers+of+Leaves+2",
     ],
-    dimensions: "30x30 inches",
+    dimensions: "30 x 30 inches",
     isFramed: false,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Signed by artist",
@@ -847,14 +851,14 @@ const allProducts = [
       estimatedDate: new Date("2025-06-20"),
     },
     tags: ["watercolor", "leaves", "autumn"],
-    additionalInfo: [
-      {
-        medium: "Watercolor on Paper",
-        style: "Impressionism",
-      },
-    ],
+    additionalInfo: {
+      medium: "Watercolor on Paper",
+      style: "Impressionism",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "collectorX",
         content: "The mood captured here is incredible.",
       },
@@ -878,7 +882,7 @@ const allProducts = [
       "https://placehold.co/800x600?text=Dancing+Colors+1",
       "https://placehold.co/800x600?text=Dancing+Colors+2",
     ],
-    dimensions: "50x50 cm",
+    dimensions: "50 x 50 cm",
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
@@ -891,14 +895,14 @@ const allProducts = [
       estimatedDate: new Date("2025-07-15"),
     },
     tags: ["oil painting", "canvas", "contemporary"],
-    additionalInfo: [
-      {
-        medium: "Oil on Canvas",
-        style: "Pop Art",
-      },
-    ],
+    additionalInfo: {
+      medium: "Oil on Canvas",
+      style: "Pop Art",
+    },
+
     comments: [
       {
+        id: 1,
         authorId: "patron01",
         content: "The use of color is just fantastic.",
       },
@@ -1349,9 +1353,13 @@ const Products = () => {
               </div>
               <div className="row g-4">
                 {filteredProducts.map((product) => (
-                  <div key={product.id} className="col-md-3">
+                  <Link
+                    to={`/products/${product.id}`}
+                    key={product.id}
+                    className="col-md-3 text-decoration-none"
+                  >
                     <ProductListing product={product} />
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
