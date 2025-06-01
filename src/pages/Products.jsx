@@ -920,16 +920,15 @@ const Products = () => {
 
   const [budgetInput, setBudgetInput] = useState("");
   const [budgetFilter, setBudgetFilter] = useState("");
-
   const [categoryChoices, setCategoryChoices] = useState(
     selectedCategory ? [selectedCategory] : []
   );
   const [categoryFilter, setCategoryFilter] = useState(
     selectedCategory ? [selectedCategory] : []
   );
-
   const [minRatingChoice, setMinRatingChoice] = useState("");
   const [minRatingFilter, setMinRatingFilter] = useState("");
+  const [sortingOrder, setSortingOrder] = useState("");
 
   let filteredProducts = [...allProducts];
   if (!budgetFilter && categoryFilter.length === 0 && !minRatingFilter) {
@@ -959,6 +958,48 @@ const Products = () => {
         (product) => product.rating >= minRatingFilter
       );
     }
+  }
+
+  const sortByIncreasingPrice = (products) => {
+    for (let i = 0; i < products.length; i++) {
+      let minIndex = i;
+      for (let j = i + 1; j < products.length; j++) {
+        if (products[j].price < products[minIndex].price) {
+          minIndex = j;
+        }
+      }
+      let temp = products[minIndex];
+      products[minIndex] = products[i];
+      products[i] = temp;
+    }
+
+    return products;
+  };
+
+  const sortByDecreasingPrice = (products) => {
+    for (let i = 0; i < products.length; i++) {
+      let maxIndex = i;
+      for (let j = i + 1; j < products.length; j++) {
+        if (products[j].price > products[maxIndex].price) {
+          maxIndex = j;
+        }
+      }
+
+      let temp = products[maxIndex];
+      products[maxIndex] = products[i];
+      products[i] = temp;
+    }
+
+    return products;
+  };
+
+  switch (sortingOrder) {
+    case "inc":
+      filteredProducts = sortByIncreasingPrice(filteredProducts);
+      break;
+    case "dec":
+      filteredProducts = sortByDecreasingPrice(filteredProducts);
+      break;
   }
 
   const minPriceInINR = 500;
@@ -998,6 +1039,14 @@ const Products = () => {
     setCategoryFilter([]);
     setMinRatingChoice("");
     setMinRatingFilter("");
+  };
+
+  const sortHandler = (event) => {
+    const { checked, value } = event.target;
+
+    if (checked) {
+      setSortingOrder(value);
+    }
   };
 
   document.querySelector("title").textContent = "Browse Art - Mizuki Hanae";
@@ -1260,6 +1309,8 @@ const Products = () => {
                       id="ascendingSortRadioBtn"
                       name="sortRadioBtn"
                       className="form-check-input"
+                      value="inc"
+                      onChange={sortHandler}
                     />{" "}
                     <label
                       htmlFor="ascendingSortRadioBtn"
@@ -1274,6 +1325,8 @@ const Products = () => {
                       id="descendingSortRadioBtn"
                       name="sortRadioBtn"
                       className="form-check-input"
+                      value="dec"
+                      onChange={sortHandler}
                     />{" "}
                     <label
                       htmlFor="descendingSortRadioBtn"
