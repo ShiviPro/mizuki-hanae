@@ -9,6 +9,9 @@ const ProductDetails = () => {
   const urlRouteParams = useParams();
   const productId = urlRouteParams["product-id"];
   const product = allProducts.find((product) => product.id == productId);
+  const [currentlyViewedImage, setCurrentlyViewedImage] = useState(
+    product.images[0]
+  );
 
   return (
     <>
@@ -74,7 +77,7 @@ const ProductDetails = () => {
               <section className="position-relative">
                 <img
                   className="w-100 img-fluid"
-                  src={product.images[0]}
+                  src={currentlyViewedImage}
                   alt={product.name}
                 />
                 <span className="bi bi-heart position-absolute end-0 mt-2 me-3 fs-5 fw-bold text-danger"></span>
@@ -83,9 +86,14 @@ const ProductDetails = () => {
                 {product.images.map((image, index) => (
                   <img
                     key={image}
-                    className="col-6 w-25 img-fluid"
+                    className={`col-6 w-25 img-fluid ${
+                      image === currentlyViewedImage
+                        ? "opacity-100"
+                        : "opacity-50"
+                    }`}
                     src={image}
                     alt={`${product.name}'s image ${index + 1}`}
+                    onClick={() => setCurrentlyViewedImage(image)}
                   />
                 ))}
               </section>
