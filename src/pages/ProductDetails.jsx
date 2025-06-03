@@ -40,6 +40,10 @@ const ProductDetails = () => {
                 <h5>
                   {product.name} ({product.yearOfMaking.getFullYear()})
                 </h5>
+                <p className="fw-bold text-secondary mb-1">
+                  {product.rating}{" "}
+                  <span className="bi-star-fill text-warning"></span>
+                </p>
                 <p className="text-secondary mb-1">
                   {product.additionalInfo.medium}
                 </p>
