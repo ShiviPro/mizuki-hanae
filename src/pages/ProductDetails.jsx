@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { allProducts } from "./Products";
 import { useParams, Link } from "react-router-dom";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import ProductListing from "../components/ProductListing";
 
 const ProductDetails = () => {
@@ -13,6 +13,9 @@ const ProductDetails = () => {
   const [currentlyViewedImage, setCurrentlyViewedImage] = useState(
     product.images[0]
   );
+
+  useEffect(() => setCurrentlyViewedImage(product.images[0]), [product]);
+
   const similarProducts = allProducts.filter((currProduct) => {
     for (let i = 0; i < currProduct.category.length; i++) {
       for (let j = 0; j < product.category.length; j++) {
