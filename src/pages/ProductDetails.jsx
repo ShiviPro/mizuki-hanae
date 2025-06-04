@@ -1,8 +1,9 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { allProducts } from "./Products";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, Fragment } from "react";
+import ProductListing from "../components/ProductListing";
 
 const ProductDetails = () => {
   const [otherDetails, setOtherDetails] = useState("additional info");
@@ -12,6 +13,31 @@ const ProductDetails = () => {
   const [currentlyViewedImage, setCurrentlyViewedImage] = useState(
     product.images[0]
   );
+  const similarProducts = allProducts.filter((currProduct) => {
+    for (let i = 0; i < currProduct.category.length; i++) {
+      for (let j = 0; j < product.category.length; j++) {
+        if (
+          currProduct.id !== product.id &&
+          currProduct.category[i] == product.category[j]
+        ) {
+          return true;
+        }
+      }
+    }
+
+    for (let i = 0; i < currProduct.tags.length; i++) {
+      for (let j = 0; j < product.tags.length; j++) {
+        if (
+          currProduct.id !== product.id &&
+          currProduct.tags[i] == product.tags[j]
+        ) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  });
 
   return (
     <>
@@ -205,6 +231,23 @@ const ProductDetails = () => {
                   </div>
                 ))
               )}
+            </div>
+          </section>
+
+          <hr className="mt-5 mb-4" />
+
+          <section>
+            <h5 className="mb-4">More artworks you might be interested in:</h5>
+            <div className="row g-3">
+              {similarProducts.map((currProduct) => (
+                <Link
+                  key={currProduct.id}
+                  className="text-decoration-none col-md-4"
+                  to={`/products/${currProduct.id}`}
+                >
+                  <ProductListing product={currProduct} />
+                </Link>
+              ))}
             </div>
           </section>
         </div>
