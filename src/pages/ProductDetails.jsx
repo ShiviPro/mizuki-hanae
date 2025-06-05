@@ -169,7 +169,7 @@ const ProductDetails = () => {
             </div>
           </section>
           <section className="mt-5 text-center">
-            <div className="btn-group">
+            <div className="btn-group z-0">
               <button
                 className={`btn ${
                   otherDetails === "additional info"
