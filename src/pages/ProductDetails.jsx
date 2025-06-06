@@ -2,10 +2,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { allProducts } from "./Products";
 import { useParams, Link } from "react-router-dom";
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useContext } from "react";
 import ProductListing from "../components/ProductListing";
+import WishlistContext from "../contexts/WishlistContext";
 
 const ProductDetails = () => {
+  const { isProductInWishlist, addToWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
   const [otherDetails, setOtherDetails] = useState("additional info");
   const urlRouteParams = useParams();
   const productId = urlRouteParams["product-id"];
@@ -118,7 +121,23 @@ const ProductDetails = () => {
                     src={currentlyViewedImage}
                     alt={product.name}
                   />
-                  <span className="bi bi-heart position-absolute end-0 mt-2 me-3 fs-5 fw-bold text-danger"></span>
+                  <a
+                    style={{ cursor: "pointer" }}
+                    className="position-absolute end-0 mt-2 me-3 link-danger"
+                    onClick={() =>
+                      isProductInWishlist(product.id)
+                        ? removeFromWishlist(product.id)
+                        : addToWishlist(product.id)
+                    }
+                  >
+                    <span
+                      className={`bi ${
+                        isProductInWishlist(product.id)
+                          ? "bi-heart-fill"
+                          : "bi-heart"
+                      } fs-5 fw-bold`}
+                    ></span>
+                  </a>
                 </section>
                 <section className="row mt-3">
                   {product.images.map((image, index) => (
@@ -243,13 +262,9 @@ const ProductDetails = () => {
             <h5 className="mb-4">More artworks you might be interested in:</h5>
             <div className="row g-3">
               {similarProducts.map((currProduct) => (
-                <Link
-                  key={currProduct.id}
-                  className="text-decoration-none col-md-4"
-                  to={`/products/${currProduct.id}`}
-                >
+                <div key={currProduct.id} className="col-md-4">
                   <ProductListing product={currProduct} />
-                </Link>
+                </div>
               ))}
             </div>
           </section>

@@ -1353,13 +1353,9 @@ const Products = () => {
               </div>
               <div className="row g-4">
                 {filteredProducts.map((product) => (
-                  <Link
-                    to={`/products/${product.id}`}
-                    key={product.id}
-                    className="col-md-3 text-decoration-none"
-                  >
+                  <div key={product.id} className="col-md-3">
                     <ProductListing product={product} />
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>

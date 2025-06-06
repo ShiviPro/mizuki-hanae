@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import WishlistContext from "../contexts/WishlistContext";
 
 const Header = () => {
+  const { wishlist } = useContext(WishlistContext);
+
   return (
     <header className="position-fixed w-100 top-0 z-1">
       <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -35,10 +39,10 @@ const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item mx-3">
-                <NavLink className="nav-link" to="">
+                <NavLink className="nav-link" to="/wishlist">
                   <span className="bi bi-heart fs-4 position-relative">
                     <span className="badge text-bg-danger px-1 py-0 rounded-pill position-absolute start-100 bottom-50 translate-middle-x">
-                      <small>0</small>
+                      <small>{wishlist.length}</small>
                     </span>
                   </span>{" "}
                   <span className="ms-2">Wishlist</span>
