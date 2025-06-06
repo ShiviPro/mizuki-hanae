@@ -5,10 +5,12 @@ import { useParams, Link } from "react-router-dom";
 import { useState, Fragment, useEffect, useContext } from "react";
 import ProductListing from "../components/ProductListing";
 import WishlistContext from "../contexts/WishlistContext";
+import CartContext from "../contexts/CartContext";
 
 const ProductDetails = () => {
   const { isProductInWishlist, addToWishlist, removeFromWishlist } =
     useContext(WishlistContext);
+  const { isProductInCart, addToCart } = useContext(CartContext);
   const [otherDetails, setOtherDetails] = useState("additional info");
   const urlRouteParams = useParams();
   const productId = urlRouteParams["product-id"];
@@ -177,9 +179,21 @@ const ProductDetails = () => {
                   </p>
                 </section>
                 <section className="mt-5">
-                  <button className="btn btn-outline-primary rounded-pill px-4 me-2">
-                    Add to Cart
-                  </button>
+                  {!isProductInCart(productId) ? (
+                    <button
+                      className="btn btn-outline-primary rounded-pill px-4 me-2"
+                      onClick={() => addToCart(productId)}
+                    >
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <Link
+                      className="btn btn-outline-primary rounded-pill px-4 me-2"
+                      to="/cart"
+                    >
+                      Go To Cart
+                    </Link>
+                  )}
                   <button className="btn btn-primary rounded-pill px-4">
                     Buy Now
                   </button>

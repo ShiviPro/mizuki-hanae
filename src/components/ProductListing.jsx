@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import WishlistContext from "../contexts/WishlistContext";
 import { Link } from "react-router-dom";
+import CartContext from "../contexts/CartContext";
 
 const ProductListing = ({ product }) => {
   const { isProductInWishlist, addToWishlist, removeFromWishlist } =
     useContext(WishlistContext);
+  const { isProductInCart, addToCart } = useContext(CartContext);
 
   return (
     <section className="card border-0 bg-white position-relative">
@@ -34,9 +36,21 @@ const ProductListing = ({ product }) => {
         </Link>
       </div>
       <div className="d-grid">
-        <button className="btn btn-primary rounded-0 rounded-bottom">
-          Add/Go To Cart
-        </button>
+        {!isProductInCart(product.id) ? (
+          <button
+            className="btn btn-primary rounded-0 rounded-bottom"
+            onClick={() => addToCart(product.id)}
+          >
+            Add To Cart
+          </button>
+        ) : (
+          <Link
+            to="/cart"
+            className="btn btn-outline-primary rounded-0 rounded-bottom"
+          >
+            Go To Cart
+          </Link>
+        )}
       </div>
       <a
         style={{ cursor: "pointer" }}

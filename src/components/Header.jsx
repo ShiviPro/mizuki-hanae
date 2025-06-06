@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import WishlistContext from "../contexts/WishlistContext";
+import CartContext from "../contexts/CartContext";
 
 const Header = () => {
   const { wishlist } = useContext(WishlistContext);
+  const { cart } = useContext(CartContext);
 
   return (
     <header className="position-fixed w-100 top-0 z-1">
@@ -49,10 +51,10 @@ const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item mx-3">
-                <NavLink className="nav-link" to="">
+                <NavLink className="nav-link" to="/cart">
                   <span className="bi bi-cart3 fs-4 position-relative">
                     <span className="badge text-bg-danger px-1 py-0 rounded-pill position-absolute start-100 bottom-50 translate-middle-x">
-                      <small>0</small>
+                      <small>{cart.length}</small>
                     </span>
                   </span>{" "}
                   <span className="ms-2">Cart</span>
