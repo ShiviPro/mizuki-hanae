@@ -5,7 +5,7 @@ import CartContext from "../contexts/CartContext";
 
 const Header = () => {
   const { wishlist } = useContext(WishlistContext);
-  const { cart } = useContext(CartContext);
+  const { getCartQuantity } = useContext(CartContext);
 
   return (
     <header className="position-fixed w-100 top-0 z-1">
@@ -54,7 +54,7 @@ const Header = () => {
                 <NavLink className="nav-link" to="/cart">
                   <span className="bi bi-cart3 fs-4 position-relative">
                     <span className="badge text-bg-danger px-1 py-0 rounded-pill position-absolute start-100 bottom-50 translate-middle-x">
-                      <small>{cart.length}</small>
+                      <small>{getCartQuantity()}</small>
                     </span>
                   </span>{" "}
                   <span className="ms-2">Cart</span>

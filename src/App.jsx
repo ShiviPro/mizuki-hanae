@@ -32,20 +32,20 @@ const App = () => {
     }
   };
 
+  const incrementInCart = (productId) => {
+    const cartEntry = cart.find((entry) => entry.product.id == productId);
+    const { product, quantity: currQuantity } = cartEntry;
+    setCart([
+      ...cart.filter((entry) => entry.product.id != productId),
+      { product, quantity: currQuantity + 1 },
+    ]);
+  };
+
   const addToCart = (productId) => {
-    if (isProductInCart(productId)) {
-      const cartEntry = cart.find((entry) => entry.product.id == productId);
-      const { product, quantity: currQuantity } = cartEntry;
-      setCart([
-        ...cart.filter((entry) => entry.product.id != productId),
-        { product, quantity: currQuantity + 1 },
-      ]);
-    } else {
-      const productToBeAdded = allProducts.find(
-        (product) => product.id == productId
-      );
-      setCart([...cart, { product: productToBeAdded, quantity: 1 }]);
-    }
+    const productToBeAdded = allProducts.find(
+      (product) => product.id == productId
+    );
+    setCart([...cart, { product: productToBeAdded, quantity: 1 }]);
   };
 
   const removeFromWishlist = (productId) => {
@@ -54,17 +54,29 @@ const App = () => {
     }
   };
 
-  const removeFromCart = (productId) => {
+  const decrementInCart = (productId) => {
     const cartEntry = cart.find((entry) => entry.product.id == productId);
     const { product, quantity: currQuantity } = cartEntry;
+
     if (currQuantity == 1) {
-      setCart(cart.filter((entry) => entry.product.id != productId));
+      removeFromCart(productId);
     } else {
       setCart([
         ...cart.filter((entry) => entry.product.id != productId),
         { product, quantity: currQuantity - 1 },
       ]);
     }
+  };
+
+  const removeFromCart = (productId) =>
+    setCart(cart.filter((entry) => entry.product.id != productId));
+
+  const getCartQuantity = () => {
+    const totalNumberOfItems = cart.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+    return totalNumberOfItems;
   };
 
   const router = createBrowserRouter([
@@ -92,7 +104,15 @@ const App = () => {
 
   return (
     <CartContext.Provider
-      value={{ cart, isProductInCart, addToCart, removeFromCart }}
+      value={{
+        cart,
+        isProductInCart,
+        addToCart,
+        removeFromCart,
+        incrementInCart,
+        decrementInCart,
+        getCartQuantity,
+      }}
     >
       <WishlistContext.Provider
         value={{
