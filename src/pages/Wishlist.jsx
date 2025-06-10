@@ -14,7 +14,7 @@ const Wishlist = () => {
           <h1 className="mb-4 display-5">My Wishlist</h1>
           <section className="row g-4">
             {wishlist.map((product) => (
-              <div className="col-md-3">
+              <div key={product.id} className="col-md-3">
                 <ProductListing product={product} />
               </div>
             ))}

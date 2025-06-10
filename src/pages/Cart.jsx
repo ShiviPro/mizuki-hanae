@@ -14,14 +14,24 @@ const Cart = () => {
     getCartQuantity,
   } = useContext(CartContext);
 
-  const getCartPrice = () => {
-    const totalPrice = cart.reduce((acc, item) => {
-      const unitPrice = item.product.price;
+  const getCartMarkedPrice = () => {
+    const totalMP = cart.reduce((acc, item) => {
+      const unitMP = item.product.markedPrice;
       const quantity = item.quantity;
-      return acc + unitPrice * quantity;
+      return acc + unitMP * quantity;
     }, 0);
 
-    return totalPrice;
+    return totalMP;
+  };
+
+  const getCartDiscount = () => {
+    const totalDiscount = cart.reduce((acc, item) => {
+      const unitDiscount = item.product.markedPrice - item.product.sellingPrice;
+      const quantity = item.quantity;
+      return acc + unitDiscount * quantity;
+    }, 0);
+
+    return totalDiscount;
   };
 
   const getCartDeliveryCharge = () => {
@@ -62,9 +72,24 @@ const Cart = () => {
                           >
                             <h6 className="card-title">{entry.product.name}</h6>
                           </Link>
-                          <p className="card-text fs-5 fw-bold">
-                            ₹{entry.product.price}
+                          <div className="d-flex justify-content-start align-items-end">
+                            <p className="card-text fs-5 fw-bold mb-0">
+                              ₹{entry.product.sellingPrice}
+                            </p>
+                            <p className="card-text fs-6 mb-0 ms-2 text-secondary">
+                              <strike>₹{entry.product.markedPrice}</strike>
+                            </p>
+                          </div>
+                          <p className="fs-5 fw-bold text-secondary">
+                            {Math.round(
+                              ((entry.product.markedPrice -
+                                entry.product.sellingPrice) /
+                                entry.product.markedPrice) *
+                                100
+                            )}
+                            % off
                           </p>
+
                           <div className="d-flex align-items-center justify-content-start mb-3">
                             <label className="card-text">Quantity: </label>
 
@@ -116,9 +141,11 @@ const Cart = () => {
                       Price ({getCartQuantity()} item
                       {getCartQuantity() === 1 ? "" : "s"})
                     </div>
-                    <div className="col-6 text-end">₹{getCartPrice()}</div>
+                    <div className="col-6 text-end">
+                      ₹{getCartMarkedPrice()}
+                    </div>
                     <div className="col-6">Discount</div>
-                    <div className="col-6 text-end">-₹0</div>
+                    <div className="col-6 text-end">-₹{getCartDiscount()}</div>
                     <div className="col-6">Delivery Charges</div>
                     <div className="col-6 text-end">
                       ₹{getCartDeliveryCharge()}
@@ -128,7 +155,10 @@ const Cart = () => {
                   <div className="row">
                     <div className="col-6 fw-bold">Total Amount</div>
                     <div className="col-6 fw-bold text-end">
-                      ₹{getCartPrice() + getCartDeliveryCharge()}
+                      ₹
+                      {getCartMarkedPrice() -
+                        getCartDiscount() +
+                        getCartDeliveryCharge()}
                     </div>
                   </div>
                   <div className="d-grid mt-4">

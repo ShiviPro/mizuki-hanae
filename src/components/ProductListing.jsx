@@ -32,7 +32,22 @@ const ProductListing = ({ product }) => {
           to={`/products/${product.id}`}
           className="link-dark link-underline link-underline-opacity-0 link-underline-opacity-50-hover"
         >
-          <p className="card-text fs-5 fw-bold">₹{product.price}</p>
+          <div className="d-flex justify-content-center align-items-end">
+            <p className="card-text fs-5 fw-bold mb-0">
+              ₹{product.sellingPrice}
+            </p>
+            <p className="card-text fs-6 opacity-50 ms-2 mb-0">
+              <strike>₹{product.markedPrice}</strike>
+            </p>
+          </div>
+          <p>
+            {Math.round(
+              ((product.markedPrice - product.sellingPrice) /
+                product.markedPrice) *
+                100
+            )}
+            % off
+          </p>
         </Link>
       </div>
       <div className="d-grid">

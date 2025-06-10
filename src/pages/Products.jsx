@@ -20,7 +20,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Signed by artist",
-    price: 23799,
+    sellingPrice: 23799,
+    markedPrice: 25499,
     delivery: {
       by: "Indian Post",
       charge: 750,
@@ -65,7 +66,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Certificate of Authenticity included",
-    price: 12499,
+    sellingPrice: 12499,
+    markedPrice: 14799,
     delivery: {
       by: "FedEx",
       charge: 350,
@@ -115,7 +117,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Mint Condition",
     proofOfAuthenticity: "Signed by artist",
-    price: 47999,
+    sellingPrice: 47999,
+    markedPrice: 51799,
     delivery: {
       by: "BlueDart Express",
       charge: 500,
@@ -164,7 +167,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Gallery-signed certificate",
-    price: 31999,
+    sellingPrice: 31999,
+    markedPrice: 32499,
     delivery: {
       by: "Aramex",
       charge: 450,
@@ -213,7 +217,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "COA #3456",
-    price: 9199,
+    sellingPrice: 9199,
+    markedPrice: 9999,
     delivery: {
       by: "DHL Express",
       charge: 300,
@@ -257,7 +262,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Signed by artist",
-    price: 45999,
+    sellingPrice: 45999,
+    markedPrice: 47799,
     delivery: {
       by: "BlueDart Express",
       charge: 600,
@@ -302,7 +308,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Gallery-signed certificate",
-    price: 14999,
+    sellingPrice: 14999,
+    markedPrice: 15999,
     delivery: {
       by: "Indian Post",
       charge: 200,
@@ -347,7 +354,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Documented provenance",
-    price: 23999,
+    sellingPrice: 23999,
+    markedPrice: 26999,
     delivery: {
       by: "FedEx",
       charge: 450,
@@ -391,7 +399,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Signed by artist",
-    price: 18499,
+    sellingPrice: 18499,
+    markedPrice: 18999,
     delivery: {
       by: "BlueDart Express",
       charge: 550,
@@ -436,7 +445,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
-    price: 29499,
+    sellingPrice: 29499,
+    markedPrice: 31499,
     delivery: {
       by: "DHL Express",
       charge: 650,
@@ -486,7 +496,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Documented provenance",
-    price: 21999,
+    sellingPrice: 21999,
+    markedPrice: 22499,
     delivery: {
       by: "Indian Post",
       charge: 300,
@@ -531,7 +542,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Signed by artist",
-    price: 13499,
+    sellingPrice: 13499,
+    markedPrice: 15999,
     delivery: {
       by: "FedEx",
       charge: 400,
@@ -576,7 +588,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Gallery-signed certificate",
-    price: 10749,
+    sellingPrice: 10749,
+    markedPrice: 12999,
     delivery: {
       by: "BlueDart Express",
       charge: 550,
@@ -620,7 +633,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Documented provenance",
-    price: 17999,
+    sellingPrice: 17999,
+    markedPrice: 20999,
     delivery: {
       by: "Indian Post",
       charge: 250,
@@ -664,7 +678,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
-    price: 26499,
+    sellingPrice: 26499,
+    markedPrice: 29499,
     delivery: {
       by: "Skynet Worldwide Express",
       charge: 400,
@@ -709,7 +724,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Good",
     proofOfAuthenticity: "Signed by artist",
-    price: 14999,
+    sellingPrice: 14999,
+    markedPrice: 16499,
     delivery: {
       by: "FedEx",
       charge: 350,
@@ -753,7 +769,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "New",
     proofOfAuthenticity: "Certificate of Authenticity included",
-    price: 12999,
+    sellingPrice: 12999,
+    markedPrice: 15499,
     delivery: {
       by: "BlueDart Express",
       charge: 500,
@@ -798,7 +815,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Restored",
     proofOfAuthenticity: "Documented provenance",
-    price: 19499,
+    sellingPrice: 19499,
+    markedPrice: 21999,
     delivery: {
       by: "Aramex",
       charge: 600,
@@ -842,7 +860,8 @@ export const allProducts = [
     isFramed: false,
     stateOfPreservation: "Fair",
     proofOfAuthenticity: "Signed by artist",
-    price: 7799,
+    sellingPrice: 7799,
+    markedPrice: 9499,
     delivery: {
       by: "Indian Post",
       charge: 150,
@@ -886,7 +905,8 @@ export const allProducts = [
     isFramed: true,
     stateOfPreservation: "Excellent",
     proofOfAuthenticity: "Certificate of Authenticity included",
-    price: 41999,
+    sellingPrice: 41999,
+    markedPrice: 44499,
     delivery: {
       by: "Skynet Worldwide Express",
       charge: 600,
@@ -940,7 +960,7 @@ const Products = () => {
   } else {
     if (budgetFilter) {
       filteredProducts = filteredProducts.filter(
-        (product) => product.price <= budgetFilter
+        (product) => product.sellingPrice <= budgetFilter
       );
     }
 
@@ -968,7 +988,7 @@ const Products = () => {
     for (let i = 0; i < products.length; i++) {
       let minIndex = i;
       for (let j = i + 1; j < products.length; j++) {
-        if (products[j].price < products[minIndex].price) {
+        if (products[j].sellingPrice < products[minIndex].sellingPrice) {
           minIndex = j;
         }
       }
@@ -984,7 +1004,7 @@ const Products = () => {
     for (let i = 0; i < products.length; i++) {
       let maxIndex = i;
       for (let j = i + 1; j < products.length; j++) {
-        if (products[j].price > products[maxIndex].price) {
+        if (products[j].sellingPrice > products[maxIndex].sellingPrice) {
           maxIndex = j;
         }
       }

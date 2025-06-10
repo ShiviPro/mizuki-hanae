@@ -161,7 +161,20 @@ const ProductDetails = () => {
                 <section>
                   <h6>Sold & Delivered by</h6>
                   <p className="mb-3">{product.delivery.by}</p>
-                  <p className="fs-5 fw-semi-bold mb-2">₹{product.price}</p>
+                  <div className="d-flex justify-content-center align-items-end">
+                    <p className="fs-5 fw-bold mb-0">₹{product.sellingPrice}</p>
+                    <p className="fs-6 opacity-50 ms-2 mb-0">
+                      <strike>₹{product.markedPrice}</strike>
+                    </p>
+                  </div>
+                  <p className="fs-5 fw-bold text-secondary">
+                    {Math.round(
+                      ((product.markedPrice - product.sellingPrice) /
+                        product.markedPrice) *
+                        100
+                    )}
+                    % off
+                  </p>
                   <p className="mb-1">
                     <small>+₹{product.delivery.charge} delivery charge</small>
                   </p>
