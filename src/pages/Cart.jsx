@@ -2,17 +2,19 @@ import Header from "../components/Header";
 import { useContext } from "react";
 import CartContext from "../contexts/CartContext";
 import { Link } from "react-router-dom";
+import WishlistContext from "../contexts/WishlistContext";
 
 const Cart = () => {
   const {
     cart,
     isProductInCart,
-    addToCart,
     removeFromCart,
     incrementInCart,
     decrementInCart,
     getCartQuantity,
   } = useContext(CartContext);
+
+  const { isProductInWishlist, addToWishlist } = useContext(WishlistContext);
 
   const getCartMarkedPrice = () => {
     const totalMP = cart.reduce((acc, item) => {
@@ -123,7 +125,15 @@ const Cart = () => {
                           >
                             Remove From Cart
                           </button>
-                          <button className="btn btn-outline-secondary w-100">
+                          <button
+                            className="btn btn-outline-secondary w-100"
+                            onClick={() => {
+                              if (!isProductInWishlist(entry.product.id)) {
+                                addToWishlist(entry.product.id);
+                              }
+                              removeFromCart(entry.product.id);
+                            }}
+                          >
                             Move To Wishlist
                           </button>
                         </div>
