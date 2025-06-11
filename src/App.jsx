@@ -33,12 +33,13 @@ const App = () => {
   };
 
   const incrementInCart = (productId) => {
-    const cartEntry = cart.find((entry) => entry.product.id == productId);
-    const { product, quantity: currQuantity } = cartEntry;
-    setCart([
-      ...cart.filter((entry) => entry.product.id != productId),
-      { product, quantity: currQuantity + 1 },
-    ]);
+    const result = cart.map((entry) =>
+      entry.product.id == productId
+        ? { ...entry, quantity: entry.quantity + 1 }
+        : { ...entry }
+    );
+
+    setCart(result);
   };
 
   const addToCart = (productId) => {
@@ -61,10 +62,12 @@ const App = () => {
     if (currQuantity == 1) {
       removeFromCart(productId);
     } else {
-      setCart([
-        ...cart.filter((entry) => entry.product.id != productId),
-        { product, quantity: currQuantity - 1 },
-      ]);
+      const result = cart.map((entry) =>
+        entry.product.id == productId
+          ? { ...entry, quantity: entry.quantity - 1 }
+          : { ...entry }
+      );
+      setCart(result);
     }
   };
 
