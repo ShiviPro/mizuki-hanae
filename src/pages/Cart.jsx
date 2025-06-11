@@ -61,7 +61,7 @@ const Cart = () => {
                     <div className="row">
                       <div className="col-5">
                         <img
-                          className="card-img rounded rounded-end-0"
+                          className="card-img rounded rounded-end-0 h-100 object-fit-cover"
                           src={entry.product.images[0]}
                           alt={entry.product.name}
                         />
