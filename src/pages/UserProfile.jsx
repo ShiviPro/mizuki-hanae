@@ -134,6 +134,45 @@ const UserProfile = () => {
     );
   };
 
+  const ProfileInfo = () => (
+    <>
+      <h2>Personal Information</h2>
+      <div>
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          id="firstName"
+          value={currentUser.name.first}
+          readOnly
+          disabled
+        />
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name:</label>
+        <input id="lastName" value={currentUser.name.last} readOnly disabled />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          value={currentUser.emailId}
+          readOnly
+          disabled
+        />
+      </div>
+      <div>
+        <label htmlFor="phone">Phone Number:</label>
+        <input
+          id="phone"
+          type="number"
+          value={currentUser.phoneNo}
+          readOnly
+          disabled
+        />
+      </div>
+    </>
+  );
+
   return (
     <>
       <Header />
@@ -199,7 +238,7 @@ const UserProfile = () => {
           </aside>
           <section>
             {sidebarSelection === "profile" ? (
-              <>Personal Information</>
+              <ProfileInfo />
             ) : sidebarSelection === "orders" ? (
               <OrderHistory />
             ) : (
