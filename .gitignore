@@ -25,3 +25,6 @@ dist-ssr
 
 # WSL Id files
 *:Zone.Identifier
+
+# Temporary File
+/src/temp

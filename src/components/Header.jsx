@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import WishlistContext from "../contexts/WishlistContext";
 import CartContext from "../contexts/CartContext";
+import UserContext from "../contexts/UserContext";
 
 const Header = () => {
   const { wishlist } = useContext(WishlistContext);
   const { getCartQuantity } = useContext(CartContext);
+  const { loggedInUser } = useContext(UserContext);
 
   return (
     <header className="position-fixed w-100 top-0 z-1">
@@ -36,9 +38,19 @@ const Header = () => {
             </div>
             <ul className="navbar-nav text-center">
               <li className="nav-item mx-3">
-                <NavLink className="nav-link" to="">
-                  <span className="btn btn-primary">Login</span>
-                </NavLink>
+                {!!loggedInUser || (
+                  <NavLink className="nav-link" to="/login">
+                    <span className="btn btn-primary">Login</span>
+                  </NavLink>
+                )}
+
+                {!!loggedInUser && (
+                  <NavLink className="nav-link" to="/user">
+                    <span className="btn btn-outline-primary">
+                      {loggedInUser}
+                    </span>
+                  </NavLink>
+                )}
               </li>
               <li className="nav-item mx-3">
                 <NavLink className="nav-link" to="/wishlist">

@@ -8,10 +8,16 @@ import { useState } from "react";
 import { allProducts } from "./pages/Products";
 import Cart from "./pages/Cart";
 import CartContext from "./contexts/CartContext";
+import Login from "./pages/Login";
+import UserContext from "./contexts/UserContext";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(
+    sessionStorage.getItem("login") ? sessionStorage.getItem("login") : ""
+  );
 
   const isProductInWishlist = (productId) => {
     const result = wishlist.find((product) => product.id == productId);
@@ -103,6 +109,14 @@ const App = () => {
       path: "/cart",
       element: <Cart />,
     },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/user",
+      element: <UserProfile />,
+    },
   ]);
 
   return (
@@ -125,7 +139,9 @@ const App = () => {
           removeFromWishlist,
         }}
       >
-        <RouterProvider router={router} />
+        <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+          <RouterProvider router={router} />
+        </UserContext.Provider>
       </WishlistContext.Provider>
     </CartContext.Provider>
   );
