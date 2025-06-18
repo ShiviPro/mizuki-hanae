@@ -190,6 +190,20 @@ const UserProfile = () => {
 
     const addrTypeHandler = (event) => setAddressTypeIn(event.target.value);
 
+    const resetForm = () => {
+      setCountryIn("");
+      setNameIn("");
+      setMobileNoIn("");
+      setPostalCodeIn("");
+      setHouseNoIn("");
+      setLocalityIn("");
+      setCityDistrictOrTownIn("");
+      setStateIn("");
+      setLandmarkIn("");
+      setAltMobileNoIn("");
+      setAddressTypeIn("");
+    };
+
     const addrFormHandler = (event) => {
       event.preventDefault();
 
@@ -212,6 +226,7 @@ const UserProfile = () => {
 
       setAllAddresses([...allAddresses, newAddress]);
       currentUser.addresses = [...allAddresses, newAddress];
+      resetForm();
       setIsNewAddressBeingAdded(false);
     };
 
@@ -246,6 +261,7 @@ const UserProfile = () => {
                   <input
                     placeholder="Country"
                     className="form-control"
+                    value={countryIn}
                     required
                     onChange={(event) => setCountryIn(event.target.value)}
                   />
@@ -254,6 +270,7 @@ const UserProfile = () => {
                   <input
                     placeholder="Name"
                     className="form-control"
+                    value={nameIn}
                     onChange={(event) => setNameIn(event.target.value)}
                     required
                   />
@@ -263,6 +280,7 @@ const UserProfile = () => {
                     type="tel"
                     placeholder="10-digit mobile number"
                     className="form-control"
+                    value={mobileNoIn}
                     onChange={(event) => setMobileNoIn(event.target.value)}
                     required
                   />
@@ -271,6 +289,7 @@ const UserProfile = () => {
                   <input
                     placeholder="Postal Code"
                     className="form-control"
+                    value={postalCodeIn}
                     onChange={(event) => setPostalCodeIn(event.target.value)}
                     required
                   />
@@ -279,6 +298,7 @@ const UserProfile = () => {
                   <input
                     placeholder="House Number"
                     className="form-control"
+                    value={houseNoIn}
                     onChange={(event) => setHouseNoIn(event.target.value)}
                     required
                   />
@@ -287,6 +307,7 @@ const UserProfile = () => {
                   <textarea
                     placeholder="Locality (Street and Area)"
                     className="form-control"
+                    value={localityIn}
                     onChange={(event) => setLocalityIn(event.target.value)}
                     required
                   ></textarea>
@@ -295,6 +316,7 @@ const UserProfile = () => {
                   <input
                     placeholder="City/District/Town"
                     className="form-control"
+                    value={cityDistrictOrTownIn}
                     onChange={(event) =>
                       setCityDistrictOrTownIn(event.target.value)
                     }
@@ -305,6 +327,7 @@ const UserProfile = () => {
                   <input
                     placeholder="State"
                     className="form-control"
+                    value={stateIn}
                     onChange={(event) => setStateIn(event.target.value)}
                     required
                   />
@@ -313,6 +336,7 @@ const UserProfile = () => {
                   <input
                     placeholder="Landmark (Optional)"
                     className="form-control"
+                    value={landmarkIn}
                     onChange={(event) => setLandmarkIn(event.target.value)}
                   />
                 </div>
@@ -321,6 +345,7 @@ const UserProfile = () => {
                     type="tel"
                     placeholder="Alternate Phone (Optional)"
                     className="form-control"
+                    value={altMobileNoIn}
                     onChange={(event) => setAltMobileNoIn(event.target.value)}
                   />
                 </div>
@@ -332,6 +357,7 @@ const UserProfile = () => {
                     type="radio"
                     name="addrType"
                     value="Home"
+                    checked={addressTypeIn === "Home"}
                     id="homeAddrType"
                     onChange={addrTypeHandler}
                   />{" "}
@@ -343,6 +369,7 @@ const UserProfile = () => {
                     type="radio"
                     name="addrType"
                     value="Work"
+                    checked={addressTypeIn === "Work"}
                     id="workAddrType"
                     onChange={addrTypeHandler}
                   />{" "}
@@ -361,7 +388,10 @@ const UserProfile = () => {
                   <div className="d-grid col-6">
                     <button
                       className="btn btn-outline-primary px-3 py-2"
-                      onClick={() => setIsNewAddressBeingAdded(false)}
+                      onClick={() => {
+                        resetForm();
+                        setIsNewAddressBeingAdded(false);
+                      }}
                     >
                       CANCEL
                     </button>
