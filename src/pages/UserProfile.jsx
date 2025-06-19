@@ -230,9 +230,7 @@ const UserProfile = () => {
       setIsNewAddressBeingAdded(false);
     };
 
-    const deleteAddress = (event) => {
-      const addressId = event.target.getAttribute("data-addr-id");
-
+    const deleteAddress = (addressId) => {
       setAllAddresses(
         allAddresses.filter((address) => address.id != addressId)
       );
@@ -431,8 +429,7 @@ const UserProfile = () => {
                   </button>
                   <button
                     className="btn btn-outline-danger"
-                    data-addr-id={address.id}
-                    onClick={deleteAddress}
+                    onClick={() => deleteAddress(address.id)}
                   >
                     <span className="bi bi-trash-fill"></span>
                   </button>
