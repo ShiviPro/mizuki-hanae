@@ -175,6 +175,7 @@ const UserProfile = () => {
 
   const AddressManager = () => {
     const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
+    const [idOfAddressToUpdate, setIdOfAddressToUpdate] = useState("");
     const [nameIn, setNameIn] = useState("");
     const [mobileNoIn, setMobileNoIn] = useState("");
     const [postalCodeIn, setPostalCodeIn] = useState("");
@@ -204,9 +205,7 @@ const UserProfile = () => {
       setAddressTypeIn("");
     };
 
-    const addrFormHandler = (event) => {
-      event.preventDefault();
-
+    const addNewAddress = () => {
       const newAddress = {
         id:
           (currentUser.addresses[currentUser.addresses.length - 1]?.id ?? 0) +
@@ -230,6 +229,37 @@ const UserProfile = () => {
       setIsNewAddressBeingAdded(false);
     };
 
+    const addrFormHandler = (event) => {
+      event.preventDefault();
+
+      if (isNewAddressBeingAdded) addNewAddress();
+      else if (idOfAddressToUpdate) updateAddress();
+    };
+
+    const updateAddress = () => {
+      const updatedAddress = {
+        id: idOfAddressToUpdate,
+        receiverName: nameIn,
+        contactNo: mobileNoIn,
+        houseNo: houseNoIn,
+        streetNameOrLocality: localityIn,
+        cityOrDistrictOrTown: cityDistrictOrTownIn,
+        landmark: landmarkIn,
+        pincode: postalCodeIn,
+        state: stateIn,
+        country: countryIn,
+        altContactNo: altMobileNoIn,
+        type: addressTypeIn,
+      };
+
+      const updatedAddressList = allAddresses.map((address) =>
+        address.id == idOfAddressToUpdate ? updatedAddress : address
+      );
+
+      setAllAddresses(updatedAddressList);
+      setIdOfAddressToUpdate("");
+    };
+
     const deleteAddress = (addressId) => {
       setAllAddresses(
         allAddresses.filter((address) => address.id != addressId)
@@ -239,20 +269,47 @@ const UserProfile = () => {
       );
     };
 
+    const setFormForAddress = (address) => {
+      setCountryIn(address.country);
+      setNameIn(address.receiverName);
+      setMobileNoIn(address.contactNo);
+      setPostalCodeIn(address.pincode);
+      setHouseNoIn(address.houseNo);
+      setLocalityIn(address.streetNameOrLocality);
+      setCityDistrictOrTownIn(address.cityOrDistrictOrTown);
+      setStateIn(address.state);
+      setLandmarkIn(address.landmark);
+      setAltMobileNoIn(address.altContactNo);
+      setAddressTypeIn(address.type);
+    };
+
+    const formCancellationHandler = () => {
+      resetForm();
+      setIsNewAddressBeingAdded(false);
+      setIdOfAddressToUpdate("");
+    };
+
     return (
       <>
         <h2 className="mb-4">Manage Addresses</h2>
         {isNewAddressBeingAdded || (
           <button
-            className="btn btn-outline-primary"
-            onClick={() => setIsNewAddressBeingAdded(true)}
+            className="btn btn-outline-primary mb-3"
+            onClick={() => {
+              formCancellationHandler();
+              setIsNewAddressBeingAdded(true);
+            }}
           >
             ADD A NEW ADDRESS
           </button>
         )}
-        {isNewAddressBeingAdded && (
+        {(isNewAddressBeingAdded || idOfAddressToUpdate) && (
           <section className="bg-primary-subtle p-4">
-            <h6 className="text-primary fw-light">ADD A NEW ADDRESS</h6>
+            <h6 className="text-primary fw-light">{`${
+              isNewAddressBeingAdded
+                ? "ADD A NEW ADDRESS"
+                : "UPDATE EXISTING ADDRESS"
+            }`}</h6>
             <form className="col-9" onSubmit={addrFormHandler}>
               <div className="row g-2">
                 <div className="col-12">
@@ -380,16 +437,13 @@ const UserProfile = () => {
                 <div className="row">
                   <div className="d-grid col-6">
                     <button type="submit" className="btn btn-primary px-3 py-2">
-                      SAVE
+                      {`${isNewAddressBeingAdded ? "SAVE" : "UPDATE"}`}
                     </button>
                   </div>
                   <div className="d-grid col-6">
                     <button
                       className="btn btn-outline-primary px-3 py-2"
-                      onClick={() => {
-                        resetForm();
-                        setIsNewAddressBeingAdded(false);
-                      }}
+                      onClick={formCancellationHandler}
                     >
                       CANCEL
                     </button>
@@ -424,7 +478,14 @@ const UserProfile = () => {
                     <span className="fw-bold">{address.pincode}</span>
                   </p>
 
-                  <button className="btn btn-outline-primary me-3">
+                  <button
+                    className="btn btn-outline-primary me-3"
+                    onClick={() => {
+                      formCancellationHandler();
+                      setIdOfAddressToUpdate(address.id);
+                      setFormForAddress(address);
+                    }}
+                  >
                     Update
                   </button>
                   <button
