@@ -3,21 +3,25 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Wishlist from "./pages/Wishlist";
-import WishlistContext from "./contexts/WishlistContext";
 import { useState } from "react";
 import { allProducts } from "./pages/Products";
 import Cart from "./pages/Cart";
-import CartContext from "./contexts/CartContext";
 import Login from "./pages/Login";
 import UserContext from "./contexts/UserContext";
 import UserProfile from "./pages/UserProfile";
+import Checkout from "./pages/Checkout";
+import OrderSummary from "./pages/OrderSummary";
+import { users } from "./pages/Login";
 
 const App = () => {
-  const [wishlist, setWishlist] = useState([]);
-  const [cart, setCart] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(
     sessionStorage.getItem("login") ? sessionStorage.getItem("login") : ""
   );
+
+  const currUser = users.find((user) => user.username === loggedInUser);
+
+  const [wishlist, setWishlist] = useState(currUser?.wishlist ?? []);
+  const [cart, setCart] = useState(currUser?.cart ?? []);
 
   const isProductInWishlist = (productId) => {
     const result = wishlist.find((product) => product.id == productId);
@@ -35,6 +39,7 @@ const App = () => {
         (product) => product.id == productId
       );
       setWishlist([...wishlist, productToBeAdded]);
+      currUser.wishlist = [...wishlist, productToBeAdded];
     }
   };
 
@@ -46,6 +51,7 @@ const App = () => {
     );
 
     setCart(result);
+    currUser.cart = result;
   };
 
   const addToCart = (productId) => {
@@ -53,11 +59,13 @@ const App = () => {
       (product) => product.id == productId
     );
     setCart([...cart, { product: productToBeAdded, quantity: 1 }]);
+    currUser.cart = [...cart, { product: productToBeAdded, quantity: 1 }];
   };
 
   const removeFromWishlist = (productId) => {
     if (isProductInWishlist(productId)) {
       setWishlist(wishlist.filter((product) => product.id != productId));
+      currUser.wishlist = wishlist.filter((product) => product.id != productId);
     }
   };
 
@@ -74,11 +82,14 @@ const App = () => {
           : { ...entry }
       );
       setCart(result);
+      currUser.cart = result;
     }
   };
 
-  const removeFromCart = (productId) =>
+  const removeFromCart = (productId) => {
     setCart(cart.filter((entry) => entry.product.id != productId));
+    currUser.cart = cart.filter((entry) => entry.product.id != productId);
+  };
 
   const getCartQuantity = () => {
     const totalNumberOfItems = cart.reduce(
@@ -117,11 +128,23 @@ const App = () => {
       path: "/user",
       element: <UserProfile />,
     },
+    {
+      path: "/checkout",
+      element: <Checkout />,
+    },
+    {
+      path: "/order-summary",
+      element: <OrderSummary />,
+    },
   ]);
 
   return (
-    <CartContext.Provider
+    <UserContext.Provider
       value={{
+        wishlist,
+        isProductInWishlist,
+        addToWishlist,
+        removeFromWishlist,
         cart,
         isProductInCart,
         addToCart,
@@ -129,21 +152,12 @@ const App = () => {
         incrementInCart,
         decrementInCart,
         getCartQuantity,
+        loggedInUser,
+        setLoggedInUser,
       }}
     >
-      <WishlistContext.Provider
-        value={{
-          wishlist,
-          isProductInWishlist,
-          addToWishlist,
-          removeFromWishlist,
-        }}
-      >
-        <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-          <RouterProvider router={router} />
-        </UserContext.Provider>
-      </WishlistContext.Provider>
-    </CartContext.Provider>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
   );
 };
 

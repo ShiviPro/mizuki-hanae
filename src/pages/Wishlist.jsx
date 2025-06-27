@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import { useContext } from "react";
-import WishlistContext from "../contexts/WishlistContext";
+import UserContext from "../contexts/UserContext";
 import ProductListing from "../components/ProductListing";
 
 const Wishlist = () => {
-  const { wishlist } = useContext(WishlistContext);
+  const { wishlist } = useContext(UserContext);
 
   return (
     <>

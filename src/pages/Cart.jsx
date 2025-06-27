@@ -1,8 +1,7 @@
 import Header from "../components/Header";
 import { useContext } from "react";
-import CartContext from "../contexts/CartContext";
 import { Link } from "react-router-dom";
-import WishlistContext from "../contexts/WishlistContext";
+import UserContext from "../contexts/UserContext";
 
 const Cart = () => {
   const {
@@ -12,9 +11,9 @@ const Cart = () => {
     incrementInCart,
     decrementInCart,
     getCartQuantity,
-  } = useContext(CartContext);
-
-  const { isProductInWishlist, addToWishlist } = useContext(WishlistContext);
+    isProductInWishlist,
+    addToWishlist,
+  } = useContext(UserContext);
 
   const getCartMarkedPrice = () => {
     const totalMP = cart.reduce((acc, item) => {
@@ -172,7 +171,9 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="d-grid mt-4">
-                    <button className="btn btn-primary">PLACE ORDER</button>
+                    <Link className="btn btn-primary" to="/checkout">
+                      PLACE ORDER
+                    </Link>
                   </div>
                 </div>
               </aside>

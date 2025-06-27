@@ -4,13 +4,17 @@ import { allProducts } from "./Products";
 import { useParams, Link } from "react-router-dom";
 import { useState, Fragment, useEffect, useContext } from "react";
 import ProductListing from "../components/ProductListing";
-import WishlistContext from "../contexts/WishlistContext";
-import CartContext from "../contexts/CartContext";
+import UserContext from "../contexts/UserContext";
 
 const ProductDetails = () => {
-  const { isProductInWishlist, addToWishlist, removeFromWishlist } =
-    useContext(WishlistContext);
-  const { isProductInCart, addToCart } = useContext(CartContext);
+  const {
+    isProductInWishlist,
+    addToWishlist,
+    removeFromWishlist,
+    isProductInCart,
+    addToCart,
+    loggedInUser,
+  } = useContext(UserContext);
   const [otherDetails, setOtherDetails] = useState("additional info");
   const urlRouteParams = useParams();
   const productId = urlRouteParams["product-id"];
@@ -79,23 +83,32 @@ const ProductDetails = () => {
                       src={currentlyViewedImage}
                       alt={product.name}
                     />
-                    <a
-                      style={{ cursor: "pointer" }}
-                      className="position-absolute end-0 mt-2 me-3 link-danger"
-                      onClick={() =>
-                        isProductInWishlist(product.id)
-                          ? removeFromWishlist(product.id)
-                          : addToWishlist(product.id)
-                      }
-                    >
-                      <span
-                        className={`bi ${
+                    {loggedInUser ? (
+                      <a
+                        style={{ cursor: "pointer" }}
+                        className="position-absolute end-0 mt-2 me-3 link-danger"
+                        onClick={() =>
                           isProductInWishlist(product.id)
-                            ? "bi-heart-fill"
-                            : "bi-heart"
-                        } fs-5 fw-bold`}
-                      ></span>
-                    </a>
+                            ? removeFromWishlist(product.id)
+                            : addToWishlist(product.id)
+                        }
+                      >
+                        <span
+                          className={`bi ${
+                            isProductInWishlist(product.id)
+                              ? "bi-heart-fill"
+                              : "bi-heart"
+                          } fs-5 fw-bold`}
+                        ></span>
+                      </a>
+                    ) : (
+                      <Link
+                        to="/login"
+                        className="position-absolute end-0 mt-2 me-3 link-danger"
+                      >
+                        <span className="bi bi-heart fs-5 fw-bold"></span>
+                      </Link>
+                    )}
                   </section>
 
                   <section className="d-grid mt-3">
@@ -104,16 +117,25 @@ const ProductDetails = () => {
                     </button>
 
                     {!isProductInCart(productId) ? (
-                      <button
-                        className="btn btn-outline-primary rounded-0 px-4"
-                        onClick={() => addToCart(productId)}
-                      >
-                        Add to Cart
-                      </button>
+                      loggedInUser ? (
+                        <button
+                          className="btn btn-outline-primary rounded-0 px-4"
+                          onClick={() => addToCart(productId)}
+                        >
+                          Add to Cart
+                        </button>
+                      ) : (
+                        <Link
+                          to="/login"
+                          className="btn btn-outline-primary rounded-0 px-4"
+                        >
+                          Add to Cart
+                        </Link>
+                      )
                     ) : (
                       <Link
                         className="btn btn-outline-primary rounded-0 px-4"
-                        to="/cart"
+                        to={loggedInUser ? "/cart" : "/login"}
                       >
                         Go To Cart
                       </Link>

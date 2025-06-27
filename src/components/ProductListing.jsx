@@ -1,12 +1,16 @@
 import { useContext } from "react";
-import WishlistContext from "../contexts/WishlistContext";
+import UserContext from "../contexts/UserContext";
 import { Link } from "react-router-dom";
-import CartContext from "../contexts/CartContext";
 
 const ProductListing = ({ product }) => {
-  const { isProductInWishlist, addToWishlist, removeFromWishlist } =
-    useContext(WishlistContext);
-  const { isProductInCart, addToCart } = useContext(CartContext);
+  const {
+    isProductInWishlist,
+    addToWishlist,
+    removeFromWishlist,
+    isProductInCart,
+    addToCart,
+    loggedInUser,
+  } = useContext(UserContext);
 
   return (
     <section className="card border-0 bg-white position-relative">
@@ -52,36 +56,54 @@ const ProductListing = ({ product }) => {
       </div>
       <div className="d-grid">
         {!isProductInCart(product.id) ? (
-          <button
-            className="btn btn-primary rounded-0 rounded-bottom"
-            onClick={() => addToCart(product.id)}
-          >
-            Add To Cart
-          </button>
+          loggedInUser ? (
+            <button
+              className="btn btn-primary rounded-0 rounded-bottom"
+              onClick={() => addToCart(product.id)}
+            >
+              Add To Cart
+            </button>
+          ) : (
+            <Link
+              className="btn btn-primary rounded-0 rounded-bottom"
+              to="/login"
+            >
+              Add To Cart
+            </Link>
+          )
         ) : (
           <Link
-            to="/cart"
+            to={loggedInUser ? "/cart" : "/login"}
             className="btn btn-outline-primary rounded-0 rounded-bottom"
           >
             Go To Cart
           </Link>
         )}
       </div>
-      <a
-        style={{ cursor: "pointer" }}
-        className="position-absolute end-0 mt-2 me-3 link-danger"
-      >
-        <span
-          className={`bi ${
-            isProductInWishlist(product.id) ? "bi-heart-fill" : "bi-heart"
-          } fs-5 fw-bold`}
-          onClick={() => {
-            isProductInWishlist(product.id)
-              ? removeFromWishlist(product.id)
-              : addToWishlist(product.id);
-          }}
-        ></span>
-      </a>
+      {loggedInUser ? (
+        <a
+          style={{ cursor: "pointer" }}
+          className="position-absolute end-0 mt-2 me-3 link-danger"
+        >
+          <span
+            className={`bi ${
+              isProductInWishlist(product.id) ? "bi-heart-fill" : "bi-heart"
+            } fs-5 fw-bold`}
+            onClick={() => {
+              isProductInWishlist(product.id)
+                ? removeFromWishlist(product.id)
+                : addToWishlist(product.id);
+            }}
+          ></span>
+        </a>
+      ) : (
+        <Link
+          to="/login"
+          className="position-absolute end-0 mt-2 me-3 link-danger"
+        >
+          <span className="bi bi-heart fs-5 fw-bold"></span>
+        </Link>
+      )}
     </section>
   );
 };

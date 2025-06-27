@@ -43,6 +43,7 @@ export const users = [
         type: "",
       },
     ],
+    currentAddressId: 1,
     orders: [
       {
         id: 1,
@@ -73,6 +74,8 @@ export const users = [
         payableAmt: 8299,
       },
     ],
+    wishlist: [],
+    cart: [],
   },
 ];
 
