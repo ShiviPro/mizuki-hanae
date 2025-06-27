@@ -27,7 +27,7 @@ export const allProducts = [
       charge: 750,
       type: "Home Delivery",
       from: { city: "Bangalore", country: "India" },
-      estimatedDate: new Date("2025-08-21"),
+      estimatedDate: new Date("2023-08-21"),
     },
     tags: ["impressionism", "landscape", "canvas", "modern art", "sculpture"],
     additionalInfo: {

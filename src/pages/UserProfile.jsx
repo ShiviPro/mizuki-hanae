@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { users } from "./Login";
 import { allProducts } from "./Products";
 import { Link } from "react-router-dom";
+import ReadableDate from "../components/ReadableDate";
 
 const UserProfile = () => {
   const { loggedInUser } = useContext(UserContext);
@@ -72,7 +73,7 @@ const UserProfile = () => {
     return (
       <>
         <h2>My Orders</h2>
-        <ul className="list-group">
+        <ul className="list-group mt-4">
           {sortByDeliveryDate(allOrders).map((item) => (
             <li key={item.id} className="list-group-item p-0">
               <div className="row">
@@ -115,9 +116,12 @@ const UserProfile = () => {
                     <div className="col-3 text-center">
                       <p>
                         Delivered on{" "}
-                        {allProducts
-                          .find((product) => product.id == item.id)
-                          .delivery.estimatedDate.toLocaleDateString()}
+                        <ReadableDate
+                          date={
+                            allProducts.find((product) => product.id == item.id)
+                              .delivery.estimatedDate
+                          }
+                        />
                       </p>
                       <p>
                         <i className="bi bi-star-fill"></i> Rate or Review
@@ -136,39 +140,62 @@ const UserProfile = () => {
 
   const ProfileInfo = () => (
     <>
-      <h2>Personal Information</h2>
-      <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          id="firstName"
-          value={currentUser.name.first}
-          readOnly
-          disabled
-        />
-      </div>
-      <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input id="lastName" value={currentUser.name.last} readOnly disabled />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          value={currentUser.emailId}
-          readOnly
-          disabled
-        />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone Number:</label>
-        <input
-          id="phone"
-          type="number"
-          value={currentUser.phoneNo}
-          readOnly
-          disabled
-        />
+      <h2 className="mb-4">Personal Information</h2>
+      <div className="row gy-3">
+        <div className="col-4">
+          <label htmlFor="firstName">First Name:</label>
+        </div>
+        <div className="col-6">
+          <input
+            id="firstName"
+            value={currentUser.name.first}
+            className="form-control"
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="col-2"></div>
+        <div className="col-4">
+          <label htmlFor="lastName">Last Name:</label>
+        </div>
+        <div className="col-6">
+          <input
+            id="lastName"
+            value={currentUser.name.last}
+            className="form-control"
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="col-2"></div>
+        <div className="col-4">
+          <label htmlFor="email">Email:</label>
+        </div>
+        <div className="col-6">
+          <input
+            id="email"
+            type="email"
+            value={currentUser.emailId}
+            className="form-control"
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="col-2"></div>
+        <div className="col-4">
+          <label htmlFor="phone">Phone Number:</label>
+        </div>
+        <div className="col-6">
+          <input
+            id="phone"
+            type="number"
+            value={currentUser.phoneNo}
+            className="form-control"
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="col-2"></div>
       </div>
     </>
   );
@@ -508,73 +535,79 @@ const UserProfile = () => {
       <Header />
       <main className="mt-5 pt-5 bg-body-tertiary pb-3">
         <div className="container">
-          <aside>
-            <section className="bg-white">
-              <div>
-                <img
-                  className="img-fluid rounded-circle"
-                  src={`https://placehold.co/50?text=${loggedInUser}`}
-                  alt={loggedInUser}
-                />
-              </div>
-              <div>
-                <p>Hello, </p>
-                <p>
-                  {currentUser.name.first} {currentUser.name.last}
-                </p>
-              </div>
+          <div className="row">
+            <aside className="col-4">
+              <section className="bg-white p-2 mb-3">
+                <div className="d-flex align-items-center">
+                  <div>
+                    <img
+                      className="img-fluid rounded-circle"
+                      src={`https://placehold.co/50?text=${loggedInUser}`}
+                      alt={loggedInUser}
+                    />
+                  </div>
+                  <div className="ms-3">
+                    <p className="fw-light mb-0">
+                      <small>Hello, </small>
+                    </p>
+                    <p className="mb-0">
+                      {currentUser.name.first} {currentUser.name.last}
+                    </p>
+                  </div>
+                </div>
+              </section>
+              <section className="bg-white">
+                <div className="d-grid">
+                  <a
+                    href="#"
+                    className={`p-3 fw-bold text-decoration-none ${
+                      sidebarSelection === "orders"
+                        ? "link link-primary bg-primary-subtle"
+                        : "link link-secondary"
+                    }`}
+                    onClick={() => setSidebarSelection("orders")}
+                  >
+                    My Orders
+                  </a>
+                </div>
+                <div className="d-grid">
+                  <a
+                    href="#"
+                    className={`p-3 fw-bold text-decoration-none ${
+                      sidebarSelection === "profile"
+                        ? "link link-primary bg-primary-subtle"
+                        : "link link-secondary"
+                    }`}
+                    onClick={() => setSidebarSelection("profile")}
+                  >
+                    Profile Information
+                  </a>
+                </div>
+                <div className="d-grid">
+                  <a
+                    href="#"
+                    className={`p-3 fw-bold text-decoration-none ${
+                      sidebarSelection === "addresses"
+                        ? "link link-primary bg-primary-subtle"
+                        : "link link-secondary"
+                    }`}
+                    onClick={() => setSidebarSelection("addresses")}
+                  >
+                    Manage Addresses
+                  </a>
+                </div>
+              </section>
+            </aside>
+            <section className="col-8">
+              {sidebarSelection === "profile" ? (
+                <ProfileInfo />
+              ) : sidebarSelection === "orders" ? (
+                <OrderHistory />
+              ) : (
+                <AddressManager />
+              )}
             </section>
-            <section className="bg-white">
-              <div className="d-grid">
-                <a
-                  href="#"
-                  className={`text-decoration-none ${
-                    sidebarSelection === "orders"
-                      ? "link link-primary bg-primary-subtle"
-                      : "link link-dark"
-                  }`}
-                  onClick={() => setSidebarSelection("orders")}
-                >
-                  My Orders
-                </a>
-              </div>
-              <div className="d-grid">
-                <a
-                  href="#"
-                  className={`text-decoration-none ${
-                    sidebarSelection === "profile"
-                      ? "link link-primary bg-primary-subtle"
-                      : "link link-dark"
-                  }`}
-                  onClick={() => setSidebarSelection("profile")}
-                >
-                  Profile Information
-                </a>
-              </div>
-              <div className="d-grid">
-                <a
-                  href="#"
-                  className={`text-decoration-none ${
-                    sidebarSelection === "addresses"
-                      ? "link link-primary bg-primary-subtle"
-                      : "link link-dark"
-                  }`}
-                  onClick={() => setSidebarSelection("addresses")}
-                >
-                  Manage Addresses
-                </a>
-              </div>
-            </section>
-          </aside>
-          <section>
-            {sidebarSelection === "profile" ? (
-              <ProfileInfo />
-            ) : sidebarSelection === "orders" ? (
-              <OrderHistory />
-            ) : (
-              <AddressManager />
-            )}
-          </section>
+          </div>
         </div>
       </main>
     </>
