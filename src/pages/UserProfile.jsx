@@ -14,42 +14,16 @@ const UserProfile = () => {
   const currentUser = users.find((user) => user.username === loggedInUser);
 
   const OrderHistory = () => {
-    const getRecentItem = (itemOne, itemTwo) => {
-      // This function returns true if itemOne is more recently delivered than itemTwo or false if otherwise.
-      const dateOne = itemOne.delivery.estimatedDate;
-      const dateTwo = itemTwo.delivery.estimatedDate;
-
-      const yearOne = dateOne.getFullYear();
-      const yearTwo = dateTwo.getFullYear();
-
-      const monthOne = dateOne.getMonth() + 1;
-      const monthTwo = dateTwo.getMonth() + 1;
-
-      const dayOne = dateOne.getDate();
-      const dayTwo = dateTwo.getDate();
-
-      if (yearOne > yearTwo) {
-        return true;
-      } else if (yearOne === yearTwo && monthOne > monthTwo) {
-        return true;
-      } else if (
-        yearOne === yearTwo &&
-        monthOne === monthTwo &&
-        dayOne > dayTwo
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
     const sortByDeliveryDate = (order) => {
       const items = [...order];
 
       for (let i = 0; i < items.length; i++) {
         let mostRecentItemIndex = i;
         for (let j = i + 1; j < items.length; j++) {
-          if (getRecentItem(items[j], items[mostRecentItemIndex])) {
+          if (
+            items[j].delivery.estimatedDate >
+            items[mostRecentItemIndex].delivery.estimatedDate
+          ) {
             mostRecentItemIndex = j;
           }
         }
